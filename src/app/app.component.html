@@ -1,57 +1,33 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<style>
-  tr.good-sell {
-    background: rgba(0, 255, 0, 0.5);
-  }
 
-  tr.good-profit {
-    box-shadow: 1px 1px 1px 1px rgba(0, 255, 255, 0.7);
-  }
+<ngb-tabset>
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <b>Status</b>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <app-status></app-status>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <b>Market</b>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <app-market></app-market>
+    </ng-template>
+  </ngb-tab>
 
-  tr.bad-sell {
-    background: rgba(255, 0, 0, 0.5);
-  }
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <b>Location</b>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <app-location></app-location>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
 
-  tr.bad-profit {
-    box-shadow: 1px 1px 1px 1px rgba(255, 0, 255, 0.7);
-  }
-</style>
-<div style="text-align:center">
-  <h2>Market Data</h2>
-  <ul>
-    <li>
-      <strong>System</strong>: {{marketData.systemName}}</li>
-    <li>
-      <strong>Station</strong>: {{marketData.stationName}}</li>
-    <li>
-      <strong>Last Update</strong>: {{marketData.timestamp}}</li>
-  </ul>
 
-  <div *ngFor="let result of marketDataKeys">
-    <table>
-      <caption>
-        <h3>{{result}}</h3>
-      </caption>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Buy</th>
-          <th>Sell</th>
-          <th>Mean</th>
-          <th>Stock/Demand</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of marketData.results[result].commodities" [ngClass]="{'good-sell': goodBuy(item), 'bad-sell': badSell(item) }">
-          <td>{{item.Name_Localised}}</td>
-          <td>{{item.BuyPrice}}</td>
-          <td>{{item.SellPrice}}</td>
-          <td>{{item.MeanPrice}}</td>
-          <td>{{item.Stock}} / {{item.Demand}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
 
 <router-outlet></router-outlet>

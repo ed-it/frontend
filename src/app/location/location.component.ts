@@ -1,0 +1,32 @@
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+import { LocationApi } from './location-api.service';
+
+@Component({
+  selector: 'app-location',
+  providers: [LocationApi],
+  templateUrl: './location.component.html',
+  styleUrls: ['./location.component.scss']
+})
+export class LocationComponent implements OnInit {
+
+  locationData: any;
+  locationDataKeys: string[];
+
+  @Output() change = new EventEmitter<number>();
+
+  constructor(private api: LocationApi) {
+    this.locationData = {};
+  }
+
+  ngOnInit() {
+
+    const lastLocation = this.api.getLocationData();
+    lastLocation.subscribe((data: any) => {
+      const { event, timestamp, params } = data;
+      console.debug(`Triggering ${event}`, params);
+      this.locationData = params;
+      this.locationDataKeys = Object.keys(this.locationData);
+    });
+  }
+}
