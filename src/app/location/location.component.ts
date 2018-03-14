@@ -13,8 +13,6 @@ export class LocationComponent implements OnInit {
   locationData: any;
   locationDataKeys: string[];
 
-  @Output() change = new EventEmitter<number>();
-
   constructor(private api: LocationApi) {
     this.locationData = {};
   }
@@ -24,8 +22,8 @@ export class LocationComponent implements OnInit {
     const lastLocation = this.api.getLocationData();
     lastLocation.subscribe((data: any) => {
       const { event, timestamp, params } = data;
-      console.debug(`Triggering ${event}`, params);
-      this.locationData = params;
+      console.debug(`Triggering ${event}`, data);
+      this.locationData = data;
       this.locationDataKeys = Object.keys(this.locationData);
     });
   }
