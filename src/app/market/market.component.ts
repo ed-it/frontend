@@ -22,9 +22,11 @@ export class MarketComponent implements OnInit {
   ngOnInit() {
     this.streams.connect().subscribe((data: any) => {
       const { event, timestamp, params } = data;
-      console.debug(`Triggering ${event}`, params);
-      this.marketData = params;
-      this.marketDataKeys = Object.keys(this.marketData.categories);
+      if (event === 'Market') {
+        console.debug(`Triggering ${event}`, params);
+        this.marketData = params;
+        this.marketDataKeys = Object.keys(this.marketData.categories);
+      }
     });
 
     const lastMarket = this.api.getMarketData();

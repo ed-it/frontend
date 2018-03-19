@@ -1,0 +1,52 @@
+#pip-container {
+  margin: 0 auto;
+  width: 12rem;
+  background: transparent;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0;
+
+  .pips {
+    height: 100%;
+    width: 4rem;
+    align-items: stretch;
+  }
+
+  .pips span {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    box-sizing: border-box;
+    background-color: black;
+    border: 1px solid white;
+    margin: 10px auto;
+    border-radius: 2rem;
+  }
+
+  .pips span.active {
+    background-color: #42d6ca;
+    border-color: white;
+  }
+
+  .pips span.half-active {
+    background: linear-gradient(to bottom, #000000 0%, #000000 46%, #42d6ca 50%, #42d6ca 100%);
+  }
+
+  .heading {
+    text-align: center;
+  }
+
+  .systems {
+    background-color: rgba(0, 0, 255, 0.2);
+  }
+
+  .engines {
+    background-color: rgba(0, 255, 0, 0.2);
+  }
+
+  .weapons {
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+}

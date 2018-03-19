@@ -1,70 +1,44 @@
-<div class="row">
-  <div id="time">Game Time:
-    <i>{{gameTime}}</i>
+<div class="row status-component">
+  <div class="col-sm">
+    <app-ship-status *ngIf="statusData.status" [currentShip]="statusData.currentShip" [status]="statusData.status"></app-ship-status>
   </div>
 
   <div class="col-sm">
-    <h3>Ship Info</h3>
-    <table id="ship-info-table">
-      <thead>
-        <tr>
-          <th>Property</th>
-          <th>Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Vehicle Type</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">Ship Name</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">Docked</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">Gear Deployed</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">Shields up</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">FSD Status</th>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
+    <app-pips-display *ngIf="statusData.status" [pips]="statusData.pips"></app-pips-display>
   </div>
 
   <div class="col-sm">
-    <h3>Pips</h3>
-    <div id="pip-container">
-      <div #system class="pips systems">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div #engine class="pips engines">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div #weapon class="pips weapons">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+    <div class="row">
+      <h3>Current Location</h3>
+    </div>
+    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation.params">
+      <div class="col-sm">
+        Star System: {{statusData.currentLocation.params.StarSystem}}
       </div>
     </div>
-  </div>
-  <div class="col-sm">
-    <h3>Current Location</h3>
+    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation.params.StationName">
+      <div class="col-sm">
+        Station: {{statusData.currentLocation.params.StationName}} ({{statusData.currentLocation.params.DistFromStarLS.toFixed(2)}}ls)
+      </div>
+      <div class="col-sm">
+        Faction: {{statusData.currentLocation.params.StationFaction}} ({{statusData.currentLocation.params.StationGovernment_Localised}})
+      </div>
+    </div>
+    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation.params.StationName">
+      <div class="col-sm">
+        <ul>
+          <li>Economy: {{statusData.currentLocation.params.StationEconomy_Localised}}</li>
+          <li>State: {{statusData.currentLocation.params.FactionState}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation.params.StationServices">
+      <div class="col-sm">
+        <h3>Station Services</h3>
+      </div>
+      <div class="col-sm">
+        <!-- <span *ngFor="let service of statusData.currentLocation.params.StationServices}}">{{service}}</span> -->
+      </div>
+    </div>
   </div>
 </div>

@@ -11,10 +11,11 @@ import { AppComponent } from './app.component';
 import { MarketModule } from './market/market.module';
 import { StatusModule } from './status/status.module';
 import { LocationModule } from './location/location.module';
+import { TravelJournalModule } from './travel-journal/travel-journal.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule, NgbModule.forRoot(), MarketModule, StatusModule, LocationModule],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule, NgbModule.forRoot(), MarketModule, StatusModule, LocationModule, TravelJournalModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,0 +1,38 @@
+<div class="card ship-status text-center">
+
+  <h3 class="card-title">Ship Info</h3>
+
+  <div class="card-body">
+    <div class="row" *ngIf="currentShip">
+      <div class="col-sm">
+        Ship Name: {{currentShip.params.ShipName}}
+      </div>
+      <div class="col-sm">
+        Ship Ident: {{currentShip.params.ShipIdent | uppercase}}
+      </div>
+    </div>
+
+
+    <div class="row" *ngIf="status">
+      <div class="col-sm">
+        Vehicle Type: {{status.vehicle}}
+      </div>
+      <div class="col-sm">
+        Mass Locked: {{status.fsd_status === 'masslock' ? 'True' : 'False'}}
+      </div>
+      <div class="col-sm">
+        Docked: {{status.docked ? 'True' : 'False'}}
+      </div>
+    </div>
+    <div class="row" *ngIf="status">
+      <div class="col-sm">
+        Shields Up {{status.shields_up ? 'True' : 'False'}}
+      </div>
+      <div class="col-sm">
+        Landing Gear: {{status.landing_gear_down ? 'Down' : 'Up'}}
+      </div>
+      <div class="col-sm">
+        Lights: {{status.lights_on ? 'On' : 'Off'}}
+      </div>
+    </div>
+  </div>
