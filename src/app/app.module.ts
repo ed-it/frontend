@@ -6,6 +6,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { SharedModule } from './shared.module';
+
 import { AppComponent } from './app.component';
 
 import { MarketModule } from './market/market.module';
@@ -15,7 +17,7 @@ import { TravelJournalModule } from './travel-journal/travel-journal.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule, NgbModule.forRoot(), MarketModule, StatusModule, LocationModule, TravelJournalModule],
+  imports: [BrowserModule, HttpClientModule, FormsModule, NgbModule.forRoot(), SharedModule, MarketModule, StatusModule, LocationModule, TravelJournalModule, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

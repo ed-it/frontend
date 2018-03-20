@@ -12,10 +12,17 @@ export class MarketComponent implements OnInit {
   marketData: any;
   marketDataKeys: string[];
 
-  @Input() profitThreshold = 110;
-  @Output() change = new EventEmitter<number>();
+  searchFilter: string;
+  onlyShowProfitable: boolean;
+  lastUpdate: Date;
+
+  @Input('profitMargin') profitMargin: number;
+  @Output('change') change = new EventEmitter<number>();
 
   constructor(private streams: MarketStream, private api: MarketApi) {
+    this.searchFilter = '';
+    this.onlyShowProfitable = false;
+    this.profitMargin = 110;
     this.marketData = {};
   }
 
@@ -24,6 +31,7 @@ export class MarketComponent implements OnInit {
       const { event, timestamp, params } = data;
       if (event === 'Market') {
         console.debug(`Triggering ${event}`, params);
+        this.lastUpdate = new Date(timestamp);
         this.marketData = params;
         this.marketDataKeys = Object.keys(this.marketData.categories);
       }
@@ -33,24 +41,38 @@ export class MarketComponent implements OnInit {
     lastMarket.subscribe((data: any) => {
       const { event, timestamp, params } = data;
       console.debug(`Triggering ${event}`, params);
+      this.lastUpdate = new Date(timestamp);
       this.marketData = params;
       this.marketDataKeys = Object.keys(this.marketData.categories);
     });
   }
 
+  isDisabled(category) {
+    const result = this.getCommodities(category);
+    return result.length === 0;
+  }
+
   getCommodities(category) {
+    let result = [];
+
     if (this.marketData.categories && this.marketData.categories[category]) {
-      return this.marketData.categories[category].commodities;
+      result = this.marketData.categories[category].commodities;
+      if (this.searchFilter) {
+        result = result.filter(commodity => commodity.Name_Localised.toLowerCase().includes(this.searchFilter.toLowerCase()));
+      }
+      if (this.onlyShowProfitable) {
+        result = result.filter(this.goodBuy.bind(this));
+      }
     }
-    return [];
+    return result;
   }
 
   goodBuy(item) {
-    return item.Stock < item.Demand && item.SellPrice / item.MeanPrice * 100 > this.profitThreshold;
+    return item.Stock < item.Demand && item.SellPrice / item.MeanPrice * 100 > this.profitMargin;
   }
 
   badSell(item) {
-    return item.Stock > item.Demand && item.SellPrice / item.MeanPrice * 100 < 101;
+    return item.Stock > item.Demand && item.SellPrice / item.MeanPrice * 100 < this.profitMargin - 10;
   }
 
   profit(item) {

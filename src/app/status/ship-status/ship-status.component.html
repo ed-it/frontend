@@ -1,38 +1,36 @@
 <div class="card ship-status text-center">
 
-  <h3 class="card-title">Ship Info</h3>
+  <div class="card-title">
+    <h2>{{currentShip.params.ShipName}}</h2>
+    <h3>[{{currentShip.params.ShipIdent | uppercase}}]</h3>
 
   <div class="card-body">
-    <div class="row" *ngIf="currentShip">
-      <div class="col-sm">
-        Ship Name: {{currentShip.params.ShipName}}
-      </div>
-      <div class="col-sm">
-        Ship Ident: {{currentShip.params.ShipIdent | uppercase}}
-      </div>
-    </div>
-
-
     <div class="row" *ngIf="status">
       <div class="col-sm">
-        Vehicle Type: {{status.vehicle}}
+        Vehicle:
+        <i [class]="vehicleType"></i>
       </div>
       <div class="col-sm">
-        Mass Locked: {{status.fsd_status === 'masslock' ? 'True' : 'False'}}
+        <strong>Mass Lock:</strong>
+        <i [class]="getBoolStatus('fsd_status', 'masslock')"></i>
       </div>
       <div class="col-sm">
-        Docked: {{status.docked ? 'True' : 'False'}}
+        <strong>Docked:</strong>
+        <i [class]="getBoolStatus('docked', true)"></i>
       </div>
     </div>
     <div class="row" *ngIf="status">
       <div class="col-sm">
-        Shields Up {{status.shields_up ? 'True' : 'False'}}
+        <strong>Shields:</strong>
+        <i [class]="getBoolStatus('shields_up', true)"></i>
       </div>
       <div class="col-sm">
-        Landing Gear: {{status.landing_gear_down ? 'Down' : 'Up'}}
+        <strong>Landing Gear:</strong>
+        <i [class]="getBoolStatus('landing_gear_down', 'Up')"></i>
       </div>
       <div class="col-sm">
-        Lights: {{status.lights_on ? 'On' : 'Off'}}
+        <strong>Lights:</strong>
+        <i [class]="getBoolStatus('lights_on', true)"></i>
       </div>
     </div>
   </div>

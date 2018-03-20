@@ -12,7 +12,7 @@ export class StatusStream {
   public connect(): Rx.Subject<MessageEvent> {
     if (!this.subject) {
       this.subject = this.subscribe();
-      console.log('Successfully connected');
+      console.log('Status Stream connected');
     }
     return this.subject;
   }

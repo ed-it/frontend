@@ -20,8 +20,8 @@ export class TravelJournalComponent implements OnInit {
   display: number;
 
   constructor(private api: TravelJournalApi) {
-    this.journalPage = 1;
-    this.countPage = 1;
+    this.journalPage = 0;
+    this.countPage = 0;
     this.display = 100;
     this.travelJournal = [];
   }
@@ -35,7 +35,6 @@ export class TravelJournalComponent implements OnInit {
     const systemByCount = this.api.getByCount();
     systemByCount.subscribe((data: any) => {
       this.systemByCount = data;
-      this.systemKeys = Object.keys(data);
     });
   }
 

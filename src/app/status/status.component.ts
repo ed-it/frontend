@@ -19,12 +19,12 @@ export class StatusComponent implements OnInit {
 
   ngOnInit() {
     this.streams.connect().subscribe((data: any) => {
+      console.log('Subscription', data);
       const { event, timestamp, params } = data;
       if (event === 'Status') {
         console.debug(`Triggering ${event}`, params);
         this.statusData = params;
         this.statusDataKeys = Object.keys(this.statusData);
-        //updatePips(this.statusData);
       }
     });
 
@@ -35,7 +35,6 @@ export class StatusComponent implements OnInit {
         console.debug(`Triggering ${event}`, params);
         this.statusData = params;
         this.statusDataKeys = Object.keys(this.statusData);
-        //updatePips(this.statusData);
       }
     });
   }

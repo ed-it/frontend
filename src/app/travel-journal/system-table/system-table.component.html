@@ -1,0 +1,19 @@
+<div class="card">
+  <h1 class="card-title">Visted Systems</h1>
+  <ngb-pagination [collectionSize]="systemKeys.length / display" [(page)]="countPage" [maxSize]="10" [rotate]="false" [ellipses]="true"
+    [boundaryLinks]="true"></ngb-pagination>
+  <table class="table" *ngIf="systemKeys.length > 0">
+    <thead>
+      <tr>
+        <th>System Name</th>
+        <th>Number of Jumps</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let system of systemKeys | sort">
+        <!-- <td>{{systems[systemKeys].starSystem}}</td>
+        <td>{{systems[systemKeys].jumpCount}}</td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
