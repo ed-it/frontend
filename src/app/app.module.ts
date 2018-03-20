@@ -15,7 +15,7 @@ import { TravelJournalModule } from './travel-journal/travel-journal.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule, NgbModule.forRoot(), MarketModule, StatusModule, LocationModule, TravelJournalModule],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule, NgbModule.forRoot() /*, MarketModule, StatusModule, LocationModule, TravelJournalModule*/ ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
