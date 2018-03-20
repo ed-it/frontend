@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import * as Rx from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+import { Subject } from 'rxjs/Subject';
 
 import { Client } from 'nes';
 
 @Injectable()
 export class StatusStream {
-  private subject: Rx.Subject<MessageEvent>;
+  private subject: Subject<MessageEvent>;
 
   constructor() {}
 
-  public connect(): Rx.Subject<MessageEvent> {
+  public connect(): Subject<MessageEvent> {
     if (!this.subject) {
       this.subject = this.subscribe();
       console.log('Status Stream connected');
@@ -17,21 +19,21 @@ export class StatusStream {
     return this.subject;
   }
 
-  private subscribe(): Rx.Subject<MessageEvent> {
-    let client = new Client('ws://localhost:12342');
+  private subscribe(): Subject<MessageEvent> {
+    const client = new Client('ws://localhost:12342');
 
-    let observable = Rx.Observable.create((obs: Rx.Observer<MessageEvent>) => {
+    const observable = Observable.create((obs: Observer<MessageEvent>) => {
       client.onUpdate = obs.next.bind(obs);
       client.onError = obs.error.bind(obs);
       client.onDisconnect = obs.complete.bind(obs);
       client.connect();
     });
-    let observer = {
+    const observer = {
       next: (data: Object) => {
         console.log(data);
         client.request(JSON.stringify(data));
       }
     };
-    return Rx.Subject.create(observer, observable);
+    return Subject.create(observer, observable);
   }
 }
