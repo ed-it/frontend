@@ -1,41 +1,25 @@
-<ngb-tabset>
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/journal" routerLinkActive="active">Journal</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/journal/system-list" routerLinkActive="active">System List</a>
+  </li>
+</ul>
+<router-outlet name="journal"></router-outlet>
+
+
+<!-- <div class="container">
+    <app-journal [data]="travelJournal"></app-journal>
+</div> -->
+
+<!-- <ngb-tabset>
   <ngb-tab>
     <ng-template ngbTabTitle>
       <b>Journal Timeline</b>
     </ng-template>
     <ng-template ngbTabContent *ngIf="travelJournal.length > 0">
-      <div class="row">
-        <div>
-          <strong>Total Jumps:</strong> {{travelJournal.length}}
-        </div>
-        <div>
-          <strong>Total Lighyears Jumped:</strong> {{totalLyJumped}}ly
-        </div>
-
-        <ngb-pagination [collectionSize]="travelJournal.length / display" [(page)]="journalPage" [maxSize]="10" [rotate]="false"
-          [ellipses]="true" [boundaryLinks]="true"></ngb-pagination>
-      </div>
-      <div class="row">
-        <div class="card" *ngFor="let jump of journal">
-          <h2 class="card-title">{{jump.params.StarSystem}}</h2>
-          <div class="card-content journal-data">
-            <div>
-              <strong>Date &amp; Time:</strong> {{jump.timestamp}}</div>
-            <div>
-              <strong>Jump Distance:</strong> {{jump.params.JumpDist.toFixed(2)}}l</div>
-            <div>
-              <strong>Fuel Used / Level:</strong> {{jump.params.FuelUsed.toFixed(2)}} / {{jump.params.FuelLevel.toFixed(2)}}</div>
-            <div>
-              <strong>Security:</strong> {{jump.params.Security_Localised}}</div>
-            <div>
-              <strong>Faction:</strong> {{jump.params.Faction}} (Gov: {{jump.params.Government_Localised}}, Power: {{jump.params.Allegiance}})</div>
-            <div>
-              <strong>Economy:</strong> {{jump.params.Economy_Localised}}</div>
-
-          </div>
-          <div class="card-footer">To =></div>
-        </div>
-      </div>
+      <app-journal [journal]="travelJournal"></app-journal>
     </ng-template>
   </ngb-tab>
 
@@ -47,4 +31,4 @@
       <app-system-table [systems]="systemByCount"></app-system-table>
     </ng-template>
   </ngb-tab>
-</ngb-tabset>
+</ngb-tabset> -->

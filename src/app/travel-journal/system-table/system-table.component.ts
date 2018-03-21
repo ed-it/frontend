@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-system-table',
@@ -8,11 +9,21 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SystemTable implements OnInit {
   @Input('systems') systems: any;
 
-  @Input('status') status: any;
+  page: number;
+  display: number;
+
+  constructor(private route: ActivatedRoute) {
+    this.systems = {};
+    this.page = 0;
+    this.display = 50;
+  }
 
   systemKeys: string[];
 
   ngOnInit() {
-    this.systemKeys = Object.keys(this.systems);
+    this.route.data.subscribe(({ data }) => {
+      this.systems = data;
+      this.systemKeys = Object.keys(this.systems);
+    });
   }
 }
