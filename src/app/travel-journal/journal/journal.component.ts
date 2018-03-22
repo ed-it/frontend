@@ -12,39 +12,25 @@ export class JournalComponent implements OnInit {
   page: number;
   display: number;
   searchFilter: string;
+  totalRecords: number;
 
   constructor(private route: ActivatedRoute) {
     this.data = [];
+    this.totalRecords = 0;
     this.searchFilter = '';
     this.page = 0;
     this.display = 50;
   }
 
   ngOnInit() {
-    this.route.data.subscribe(({ data }) => {
-      this.data = data;
+    this.route.data.subscribe(data => {
+      this.totalRecords = data.data.totalRecords;
+      this.data = data.data.result;
     });
   }
 
-  get journal() {
-    let result = this.data;
-    if (this.searchFilter) {
-      result = result.filter(jump => jump.params.StarSystem.toLowerCase().includes(this.searchFilter.toLowerCase()));
-      result = result.slice(
-        0,
-        this.display
-      );
-    } else {
-      result = result.slice(
-        (this.page - 1) * this.display,
-        this.page * this.display
-      );
-    }
-    return result;
-  }
-
   get totalLyJumped() {
-    return this.data
+    return (this.data || [])
       .map(jump => jump.params.JumpDist)
       .reduce((reducer, distance) => (reducer += distance), 0)
       .toFixed(2);
