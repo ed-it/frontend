@@ -1,34 +1,11 @@
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link" routerLink="/journal" routerLinkActive="active">Journal</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" routerLink="/journal/system-list" routerLinkActive="active">System List</a>
-  </li>
-</ul>
-<router-outlet name="journal"></router-outlet>
-
-
-<!-- <div class="container">
-    <app-journal [data]="travelJournal"></app-journal>
-</div> -->
-
-<!-- <ngb-tabset>
-  <ngb-tab>
-    <ng-template ngbTabTitle>
-      <b>Journal Timeline</b>
-    </ng-template>
-    <ng-template ngbTabContent *ngIf="travelJournal.length > 0">
-      <app-journal [journal]="travelJournal"></app-journal>
-    </ng-template>
-  </ngb-tab>
-
-  <ngb-tab>
-    <ng-template ngbTabTitle>
-      <b>Systems By Count</b>
-    </ng-template>
-    <ng-template ngbTabContent>
-      <app-system-table [systems]="systemByCount"></app-system-table>
-    </ng-template>
-  </ngb-tab>
-</ngb-tabset> -->
+<div class="container">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/journal" routerLinkActive="active">Journal</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/journal', { outlets: { 'journal': ['list']}}]" routerLinkActive="active">System List</a>
+    </li>
+  </ul>
+  <router-outlet name="journal"></router-outlet>
+</div>

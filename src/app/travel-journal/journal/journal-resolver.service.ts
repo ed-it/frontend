@@ -1,9 +1,8 @@
-import { Injectable }             from '@angular/core';
-import { Observable }             from 'rxjs/Observable';
-import { Router, Resolve, RouterStateSnapshot,
-         ActivatedRouteSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 
-import { TravelJournalApi }  from './../travel-journal-api.service';
+import { TravelJournalApi } from './../travel-journal-api.service';
 
 @Injectable()
 export class JournalResolver implements Resolve<any> {

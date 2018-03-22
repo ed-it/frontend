@@ -1,22 +1,97 @@
 <div class="container location">
   <div class="row">
-    <div class="col-sm">
-      <table>
-        <tr>
-          <th scope="row">Star System</th>
-          <td>{{locationData.params.StarSystem}}</td>
-        </tr>
-        <tr>
-            <th scope="row">Station Name</th>
-            <td>{{locationData.params.StationName}}</td>
-          </tr>
-      </table>
+    <div class="card">
+      <div class="card-header">
+        <strong>Star System: {{locationData.params.StarSystem}}</strong>
+        <small class="text-muted" *ngIf="locationData.params.StationName">
+          Docked at {{locationData.params.StationName}}
+        </small>
+      </div>
+
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngIf="locationData.traffic">
+            <strong>Traffic:</strong> Total {{locationData.traffic.traffic.total}} / Week {{locationData.traffic.traffic.week}} /
+            Day {{locationData.traffic.traffic.day}}</li>
+          <li class="list-group-item" *ngIf="locationData.deaths">
+            <strong>Deaths:</strong> Total: {{locationData.deaths.deaths.total}} / Week {{locationData.deaths.deaths.week}} / Day
+            {{locationData.deaths.deaths.day}}
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
+  <div class="row">
+
     <div class="col-sm">
-      One of three columns
+      <div class="card">
+
+        <div class="card-header">
+          <h2>Stations</h2>
+        </div>
+
+        <div class="card-body" *ngIf="locationData.stations">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let station of locationData.stations.stations">
+              <div class="card">
+                <div class="card-header">
+                  <h3>{{station.name}}</h3>
+                  <small class="text-muted">Distance To Travel from Star: {{station.distanceToArrival.toFixed(2)}}ls</small>
+                </div>
+                <div class="card-body">
+                  <ul>
+                    <li>
+                      <strong>Government:</strong> {{station.government}}</li>
+                    <li>
+                      <strong>Economy:</strong> {{station.economy}}</li>
+                    <li>
+                      <strong>Market:</strong> {{station.haveMarket ? 'Yes' : 'No'}}</li>
+                    <li>
+                      <strong>Outfitting:</strong> {{station.haveOutfitting ? 'Yes' : 'No'}}</li>
+                    <li>
+                      <strong>Shipyard:</strong> {{station.haveShipyard ? 'Yes' : 'No'}}</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+
     <div class="col-sm">
-      One of three columns
+      <div class="card">
+        
+        <div class="card-header">
+          <h2>Factions</h2>
+        </div>
+
+        <div class="card-body" *ngIf="locationData.factions">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let faction of locationData.factions.factions">
+              <div class="card">
+                <div class="card-header">
+                  <h3>{{faction.name}}</h3>
+                  <small class="text-muted">Influence: {{(faction.influence * 100).toFixed(1)}}%</small>
+                  <small class="text-muted" *ngIf="faction.isPlayer">Player Faction</small>
+                </div>
+                <div class="card-body">
+                  <ul>
+                    <li>
+                      <strong>Government:</strong> {{faction.government}}</li>
+                    <li>
+                      <strong>Allegence:</strong> {{faction.allegiance}}</li>
+                    <li>
+                      <strong>State:</strong> {{faction.state}}</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+
+
   </div>
 </div>

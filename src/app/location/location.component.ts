@@ -14,7 +14,9 @@ export class LocationComponent implements OnInit {
   locationDataKeys: string[];
 
   constructor(private api: LocationApi) {
-    this.locationData = {};
+    this.locationData = {
+      params: {}
+    };
   }
 
   ngOnInit() {
@@ -22,7 +24,6 @@ export class LocationComponent implements OnInit {
     const lastLocation = this.api.getLocationData();
     lastLocation.subscribe((data: any) => {
       const { event, timestamp, params } = data;
-      console.debug(`Triggering ${event}`, data);
       this.locationData = data;
       this.locationDataKeys = Object.keys(this.locationData);
     });

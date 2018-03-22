@@ -17,7 +17,18 @@ import { TravelJournalModule } from './travel-journal/travel-journal.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, FormsModule, NgbModule.forRoot(), SharedModule, MarketModule, StatusModule, LocationModule, TravelJournalModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    NgbModule.forRoot(),
+    SharedModule,
+    MarketModule,
+    StatusModule,
+    LocationModule,
+    TravelJournalModule,
+    AppRoutingModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
