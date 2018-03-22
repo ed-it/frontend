@@ -1,4 +1,58 @@
-<div class="card">
+<div class="row">
+  <div class="container">
+    <ngb-pagination class="d-flex justify-content-center" [collectionSize]="systemKeys.length / (display / 10)" [(page)]="page"
+      [maxSize]="10" [rotate]="false" [ellipses]="true" [boundaryLinks]="true"></ngb-pagination>
+  </div>
+  <small class="text-muted">
+    Displaying {{(page - 1) * display}} - {{(page) * display}} of {{systemKeys.length}}
+  </small>
+</div>
+<div class="row">
+  <div class="container">
+    <form class="form-inline">
+      <label class="sr-only" for="searchFilter">Filter System Name</label>
+      <div class="input-group mb-2 mr-sm-2">
+        <input type="text" class="form-control" name="searchFilter" id="searchFilter" placeholder="Filter System Name" [(ngModel)]="searchFilter">
+      </div>
+    </form>
+  </div>
+</div>
+<div class="list-group">
+  <div class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let system of list">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{systems[system].starSystem}}</h5>
+      <p>
+        <strong>Total Number of Jumps: {{systems[system].jumpCount}}</strong>
+      </p>
+      <small class="text-muted">{{systems[system].timestamp | date:'dd-MM-yyyy HH:mm'}}</small>
+    </div>
+
+    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+      <ngb-panel title="Jump List">
+        <ng-template ngbPanelContent>
+          <div class="card" *ngFor="let jump of systems[system].jumps">
+            <div class="card-header" id="jumps-display">
+              <h5 class="mb-0">Date &amp; time: {{jump.timestamp | date:'dd-MM-yyyy HH:mm'}}</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <strong>Jump Distance:</strong> {{jump.jump.distance.toFixed(2)}}ly</li>
+                <li class="list-group-item">
+                  <strong>Fuel Used / Level:</strong> {{jump.fuel.used.toFixed(2)}} / {{jump.fuel.level.toFixed(2)}}</li>
+              </ul>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+</div>
+
+
+
+
+<!-- <div class="card">
   <h1 class="card-title">Visted Systems</h1>
   <ngb-pagination [collectionSize]="systemKeys.length / display" [(page)]="countPage" [maxSize]="10" [rotate]="false" [ellipses]="true"
     [boundaryLinks]="true"></ngb-pagination>
@@ -11,9 +65,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let system of systemKeys | sort">
-        <!-- <td>{{systems[systemKeys].starSystem}}</td>
-        <td>{{systems[systemKeys].jumpCount}}</td> -->
+        <td>{{systems[systemKeys].starSystem}}</td>
+        <td>{{systems[systemKeys].jumpCount}}</td>
       </tr>
     </tbody>
   </table>
-</div>
+</div> -->

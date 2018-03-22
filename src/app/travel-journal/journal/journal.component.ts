@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './journal.component.html',
   styleUrls: ['./journal.component.scss']
 })
-export class Journal implements OnInit {
+export class JournalComponent implements OnInit {
   @Input('data') data: any;
 
   page: number;
@@ -30,11 +30,16 @@ export class Journal implements OnInit {
     let result = this.data;
     if (this.searchFilter) {
       result = result.filter(jump => jump.params.StarSystem.toLowerCase().includes(this.searchFilter.toLowerCase()));
+      result = result.slice(
+        0,
+        this.display
+      );
+    } else {
+      result = result.slice(
+        (this.page - 1) * this.display,
+        this.page * this.display
+      );
     }
-    result = result.slice(
-      (this.page - 1) * this.display,
-      this.page * this.display
-    );
     return result;
   }
 
@@ -49,7 +54,7 @@ export class Journal implements OnInit {
     if (!params.Faction) {
       return 'None';
     }
-    let faction = `${params.Faction}`;
+    const faction = `${params.Faction}`;
     let suffix = '';
     if (params.Allegiance) {
       suffix = `${suffix} Power: ${params.Allegiance}`;
