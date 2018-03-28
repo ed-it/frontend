@@ -5,9 +5,6 @@ import { TravelJournalComponent } from './travel-journal.component';
 import { JournalComponent } from './journal/journal.component';
 import { SystemListComponent } from './system-list/system-list.component';
 
-import { JournalResolver } from './journal/journal-resolver.service';
-import { SystemListResolver } from './system-list/system-list-resolver.service';
-
 const routes: Routes = [
   {
     path: 'journal',
@@ -17,18 +14,12 @@ const routes: Routes = [
         path: 'list',
         pathMatch: 'full',
         component: SystemListComponent,
-        outlet: 'journal',
-        resolve: {
-          data: SystemListResolver
-        }
+        outlet: 'journal'
       },
       {
         path: '',
         component: JournalComponent,
-        outlet: 'journal',
-        resolve: {
-          data: JournalResolver
-        }
+        outlet: 'journal'
       }
     ]
   }
@@ -36,7 +27,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-  providers: [JournalResolver, SystemListResolver]
+  exports: [RouterModule]
 })
 export class TravelJournalRoutingModule {}

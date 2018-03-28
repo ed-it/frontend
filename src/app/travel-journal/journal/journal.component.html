@@ -1,33 +1,7 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm">
-      <strong>Total Jumps:</strong> {{totalRecords}}
-    </div>
-    <div class="col-sm">
-      <strong>Total Lighyears Jumped:</strong> {{totalLyJumped}}ly
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="container">
-      <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalRecords / (display / 10)" [(page)]="page" [maxSize]="10"
-        [rotate]="false" [ellipses]="true" [boundaryLinks]="true" (pageChange)="onChange({page: $event})"></ngb-pagination>
-    </div>
-    <small class="text-muted">
-      Displaying {{(page - 1) * display}} - {{(page) * data.length}} of {{totalRecords}}
-    </small>
-  </div>
-  <div class="row">
-    <div class="container">
-      <form class="form-inline">
-        <label class="sr-only" for="searchFilter">Filter System Name</label>
-        <div class="input-group mb-2 mr-sm-2">
-          <input type="text" class="form-control" name="searchFilter" id="searchFilter" placeholder="Filter System Name" [(ngModel)]="searchFilter"
-            (ngModelChange)="onChange()">
-        </div>
-      </form>
-    </div>
-  </div>
+  <app-journal-filter-bar title="System Journal" [data]="data" [totalRecords]="totalRecords" [loading]="loading" (filterChange)="filterChange($event)"></app-journal-filter-bar>
+
   <div class="loading" *ngIf="loading">
     <h2>Loading...</h2>
   </div>

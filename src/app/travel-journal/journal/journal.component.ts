@@ -1,64 +1,40 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JournalApiService } from './journal-api.service';
 
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+
 @Component({
   selector: 'app-journal',
-  providers: [JournalApiService],
+  providers: [JournalApiService, Ng4LoadingSpinnerService],
   templateUrl: './journal.component.html',
   styleUrls: ['./journal.component.scss']
 })
-export class JournalComponent implements OnInit {
+export class JournalComponent {
   @Input('data') data: any;
-
-  @Input('page') page: number;
-
-  @Input('searchFilter') searchFilter: string;
-
   loading: boolean;
-
-  display: number;
   totalRecords: number;
 
-  constructor(private route: ActivatedRoute, private api: JournalApiService) {
+  constructor(
+    private route: ActivatedRoute,
+    private api: JournalApiService,
+    private spinner: Ng4LoadingSpinnerService
+  ) {
     this.loading = false;
     this.data = [];
     this.totalRecords = 0;
-    this.searchFilter = '';
-    this.page = 0;
-    this.display = 50;
   }
 
-  ngOnInit() {
+  filterChange(event) {
     this.loading = true;
-    this.route.data.subscribe(({ data }) => {
-      this.totalRecords = data.totalRecords;
-      this.data = data.result;
-      this.loading = false;
-    });
-  }
-
-  onChange() {
-    this.loading = true;
-    let options = {
-      page: this.page,
-      display: this.display,
-      searchFilter: this.searchFilter
-    };
-
-    const data = this.api.get(options);
+    this.spinner.show();
+    const data = this.api.get(event);
     data.subscribe((result: any) => {
       this.totalRecords = result.totalRecords;
       this.data = result.result;
+      this.spinner.hide();
       this.loading = false;
     });
-  }
-
-  get totalLyJumped() {
-    return (this.data || [])
-      .map(jump => jump.params.JumpDist)
-      .reduce((reducer, distance) => (reducer += distance), 0)
-      .toFixed(2);
   }
 
   faction(params) {

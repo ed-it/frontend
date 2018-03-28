@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -22,6 +23,7 @@ import { TravelJournalModule } from './travel-journal/travel-journal.module';
     HttpClientModule,
     FormsModule,
     NgbModule.forRoot(),
+    Ng4LoadingSpinnerModule.forRoot(),
     SharedModule,
     MarketModule,
     StatusModule,

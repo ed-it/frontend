@@ -10,10 +10,7 @@ import { SystemListApiService } from './system-list-api.service';
 })
 export class SystemListComponent implements OnInit {
   @Input('data') data: any[];
-  @Input('page') page: number;
-  @Input('searchFilter') searchFilter: string;
 
-  display: number;
   totalRecords: number;
   loading: boolean;
 
@@ -22,33 +19,21 @@ export class SystemListComponent implements OnInit {
     private api: SystemListApiService
   ) {
     this.data = [];
-    this.page = 0;
-    this.display = 50;
     this.loading = false;
   }
 
   ngOnInit() {
-    this.loading = true;
-    this.route.data.subscribe(({ data }) => {
-      this.data = data.result;
-      this.totalRecords = data.totalRecords;
-      this.loading === false;
-    });
+    // this.route.data.subscribe(({ data }) => {
+    //   this.data = data.result;
+    //   this.totalRecords = data.totalRecords;
+    // });
   }
 
-  onChange() {
-    this.loading = true;
-    let options = {
-      page: this.page,
-      display: this.display,
-      searchFilter: this.searchFilter
-    };
-
-    const data = this.api.get(options);
+  filterChange(event) {
+    const data = this.api.get(event);
     data.subscribe((result: any) => {
       this.totalRecords = result.totalRecords;
       this.data = result.result;
-      this.loading = false;
     });
   }
 
