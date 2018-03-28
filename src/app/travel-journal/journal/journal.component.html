@@ -11,10 +11,10 @@
   <div class="row">
     <div class="container">
       <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalRecords / (display / 10)" [(page)]="page" [maxSize]="10"
-        [rotate]="false" [ellipses]="true" [boundaryLinks]="true"></ngb-pagination>
+        [rotate]="false" [ellipses]="true" [boundaryLinks]="true" (pageChange)="onChange({page: $event})"></ngb-pagination>
     </div>
     <small class="text-muted">
-      Displaying {{(page - 1) * display}} - {{(page) * display}} of {{data.length}}
+      Displaying {{(page - 1) * display}} - {{(page) * data.length}} of {{totalRecords}}
     </small>
   </div>
   <div class="row">
@@ -22,12 +22,16 @@
       <form class="form-inline">
         <label class="sr-only" for="searchFilter">Filter System Name</label>
         <div class="input-group mb-2 mr-sm-2">
-          <input type="text" class="form-control" name="searchFilter" id="searchFilter" placeholder="Filter System Name" [(ngModel)]="searchFilter">
+          <input type="text" class="form-control" name="searchFilter" id="searchFilter" placeholder="Filter System Name" [(ngModel)]="searchFilter"
+            (ngModelChange)="onChange()">
         </div>
       </form>
     </div>
   </div>
-  <div class="list-group">
+  <div class="loading" *ngIf="loading">
+    <h2>Loading...</h2>
+  </div>
+  <div class="list-group" *ngIf="!loading">
     <div class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let jump of data">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{jump.params.StarSystem}}</h5>

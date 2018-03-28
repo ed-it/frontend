@@ -1,10 +1,10 @@
 <div class="row">
   <div class="container">
-    <ngb-pagination class="d-flex justify-content-center" [collectionSize]="systemKeys.length / (display / 10)" [(page)]="page"
-      [maxSize]="10" [rotate]="false" [ellipses]="true" [boundaryLinks]="true"></ngb-pagination>
+    <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalRecords / (display / 10)" [(page)]="page" [maxSize]="10"
+      [rotate]="false" [ellipses]="true" [boundaryLinks]="true" (pageChange)="onChange({page: $event})"></ngb-pagination>
   </div>
   <small class="text-muted">
-    Displaying {{(page - 1) * display}} - {{(page) * display}} of {{systemKeys.length}}
+    Displaying {{(page - 1) * display}} - {{(page) * data.length}} of {{totalRecords}}
   </small>
 </div>
 <div class="row">
@@ -12,25 +12,32 @@
     <form class="form-inline">
       <label class="sr-only" for="searchFilter">Filter System Name</label>
       <div class="input-group mb-2 mr-sm-2">
-        <input type="text" class="form-control" name="searchFilter" id="searchFilter" placeholder="Filter System Name" [(ngModel)]="searchFilter">
+        <input type="text" class="form-control" name="searchFilter" id="searchFilter" placeholder="Filter System Name" [(ngModel)]="searchFilter"
+          (ngModelChange)="onChange()">
       </div>
     </form>
   </div>
 </div>
-<div class="list-group">
-  <div class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let system of list">
+<div class="loading" *ngIf="loading">
+  <h2>Loading...</h2>
+</div>
+<div class="list-group" *ngIf="!loading">
+  <div class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let system of data">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{systems[system].starSystem}}</h5>
-      <p>
-        <strong>Total Number of Jumps: {{systems[system].jumpCount}}</strong>
-      </p>
-      <small class="text-muted">{{systems[system].timestamp | date:'dd-MM-yyyy HH:mm'}}</small>
+      <h5 class="mb-1">{{system.params.StarSystem}}</h5>
+      <small class="text-muted">{{system.timestamp | date:'dd-MM-yyyy HH:mm'}}</small>
     </div>
+    <p class="mb-1">
+      <strong>Faction:</strong> {{faction(system.params)}}
+      <br />
+      <strong>Economy:</strong> {{system.params.Economy_Localised}}
+      <strong>Security:</strong> {{system.params.Security_Localised}}
+    </p>
 
     <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
       <ngb-panel title="Jump List">
         <ng-template ngbPanelContent>
-          <div class="card" *ngFor="let jump of systems[system].jumps">
+          <div class="card" *ngFor="let jump of system.jumps">
             <div class="card-header" id="jumps-display">
               <h5 class="mb-0">Date &amp; time: {{jump.timestamp | date:'dd-MM-yyyy HH:mm'}}</h5>
             </div>

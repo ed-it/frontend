@@ -1,20 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { JournalApiService } from './journal-api.service';
 
 @Component({
   selector: 'app-journal',
+  providers: [JournalApiService],
   templateUrl: './journal.component.html',
   styleUrls: ['./journal.component.scss']
 })
 export class JournalComponent implements OnInit {
   @Input('data') data: any;
 
-  page: number;
+  @Input('page') page: number;
+
+  @Input('searchFilter') searchFilter: string;
+
+  loading: boolean;
+
   display: number;
-  searchFilter: string;
   totalRecords: number;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private api: JournalApiService) {
+    this.loading = false;
     this.data = [];
     this.totalRecords = 0;
     this.searchFilter = '';
@@ -23,9 +30,27 @@ export class JournalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.totalRecords = data.data.totalRecords;
-      this.data = data.data.result;
+    this.loading = true;
+    this.route.data.subscribe(({ data }) => {
+      this.totalRecords = data.totalRecords;
+      this.data = data.result;
+      this.loading = false;
+    });
+  }
+
+  onChange() {
+    this.loading = true;
+    let options = {
+      page: this.page,
+      display: this.display,
+      searchFilter: this.searchFilter
+    };
+
+    const data = this.api.get(options);
+    data.subscribe((result: any) => {
+      this.totalRecords = result.totalRecords;
+      this.data = result.result;
+      this.loading = false;
     });
   }
 
