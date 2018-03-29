@@ -1,77 +1,43 @@
-<div class="card">
-  <h1 class="card-header">Market Data</h1>
-  <div class="card-content">
+<app-market-toolbar title="Market Data"
+  [data]="marketData"
+  [lastUpdate]="lastUpdate"
+  (filterChange)="filterChange($event)"></app-market-toolbar>
 
-    <div class="row">
-      <div class="col-sm">
-        <strong>System</strong>: {{marketData.systemName}}
-      </div>
-      <div class="col-sm">
-        <strong>Station</strong>: {{marketData.stationName}}
-      </div>
-      <div class="col-sm">
-        <strong>Last Update</strong>: {{lastUpdate | date:'dd-MM-yyyy HH:mm'}} (Game Time)
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="container">
-        <form class="form-inline">
-          <label class="sr-only" for="profitMargin">Profit Margin</label>
-          <div class="input-group mb-2 mr-sm-2">
-            <div class="input-group-append">
-              <div class="input-group-text">%</div>
-            </div>
-            <input type="number" class="form-control" id="profitMargin" name="profitMargin" placeholder="Profit Threshold" [(ngModel)]="profitMargin">
-          </div>
-
-          <label class="sr-only" for="searchFilter">Filter Commodity</label>
-          <div class="input-group mb-2 mr-sm-2">
-            <input type="text" class="form-control" name="searchFilter" id="searchFilter" placeholder="Filter Commodity" [(ngModel)]="searchFilter">
-          </div>
-
-          <div class="form-check mb-2 mr-sm-2">
-            <input class="form-check-input" type="checkbox" id="onlyShowProfitable" name="onlyShowProfitable" [(ngModel)]="onlyShowProfitable">
-            <label class="form-check-label" for="onlyShowProfitable">
-              Only show profitable
-            </label>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="container">
-        <ngb-tabset>
-          <ngb-tab *ngFor="let result of marketDataKeys" [disabled]="isDisabled(result)">
-            <ng-template ngbTabTitle>
-              <b>{{result}}</b>
-            </ng-template>
-            <ng-template ngbTabContent>
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">Item</th>
-                    <th scope="col">Buy</th>
-                    <th scope="col">Sell</th>
-                    <th scope="col">Mean</th>
-                    <th scope="col">Stock/Demand</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of getCommodities(result)" [ngClass]="{'table-success': goodBuy(item), 'table-danger': badSell(item) }"
-                    title="Profit Margin: {{profit(item)}}">
-                    <td>{{item.Name_Localised}}</td>
-                    <td>{{item.BuyPrice}}</td>
-                    <td>{{item.SellPrice}}</td>
-                    <td>{{item.MeanPrice}}</td>
-                    <td>{{item.Stock}} / {{item.Demand}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </ng-template>
-          </ngb-tab>
-        </ngb-tabset>
-      </div>
-    </div>
+<div class="row">
+  <div class="container">
+    <ngb-tabset>
+      <ngb-tab *ngFor="let result of marketDataKeys"
+        [disabled]="isDisabled(result)">
+        <ng-template ngbTabTitle>
+          <b>{{result}}</b>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Buy</th>
+                <th scope="col">Sell</th>
+                <th scope="col">Mean</th>
+                <th scope="col">Stock/Demand</th>
+                <th scope="col">Profit Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of getCommodities(result)"
+                [ngClass]="{'table-success': goodBuy(item), 'table-danger': badSell(item) }"
+                title="Profit Margin: {{profit(item)}}">
+                <td>{{item.Name_Localised}}</td>
+                <td>{{item.BuyPrice}}</td>
+                <td>{{item.SellPrice}}</td>
+                <td>{{item.MeanPrice}}</td>
+                <td>{{item.Stock}} / {{item.Demand}}</td>
+                <td>{{profit(item)}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
   </div>
+</div>

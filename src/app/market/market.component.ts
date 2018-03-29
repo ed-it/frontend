@@ -26,11 +26,16 @@ export class MarketComponent implements OnInit {
     this.marketData = {};
   }
 
+  filterChange(filter) {
+    this.searchFilter = filter.searchQuery;
+    this.onlyShowProfitable = filter.onlyShowProfitable;
+    this.profitMargin = filter.profitMargin;
+  }
+
   ngOnInit() {
     this.streams.connect().subscribe((data: any) => {
       const { event, timestamp, params } = data;
       if (event === 'Market') {
-        console.debug(`Triggering ${event}`, params);
         this.lastUpdate = new Date(timestamp);
         this.marketData = params;
         this.marketDataKeys = Object.keys(this.marketData.categories);
@@ -40,7 +45,6 @@ export class MarketComponent implements OnInit {
     const lastMarket = this.api.getMarketData();
     lastMarket.subscribe((data: any) => {
       const { event, timestamp, params } = data;
-      console.debug(`Triggering ${event}`, params);
       this.lastUpdate = new Date(timestamp);
       this.marketData = params;
       this.marketDataKeys = Object.keys(this.marketData.categories);
