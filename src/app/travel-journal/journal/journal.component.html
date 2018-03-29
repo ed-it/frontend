@@ -1,6 +1,6 @@
 <div class="container">
 
-  <app-journal-filter-bar title="System Journal" [data]="data" [totalRecords]="totalRecords" [loading]="loading" (filterChange)="filterChange($event)"></app-journal-filter-bar>
+  <app-journal-filter-bar title="System Journal" [data]="data" [totalRecords]="totalRecords" (filterChange)="filterChange($event)"></app-journal-filter-bar>
 
   <div class="loading" *ngIf="loading">
     <h2>Loading...</h2>

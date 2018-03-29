@@ -4,10 +4,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
-
 import { TravelJournalRoutingModule } from './travel-journal-routes.module';
 import { JournalApiService } from './journal/journal-api.service';
 import { SystemListApiService } from './system-list/system-list-api.service';
+import { FilterBarService } from './filter-bar/filter-bar.service';
 
 import { SharedModule } from '../shared.module';
 import { SystemListComponent } from './system-list/system-list.component';
@@ -31,6 +31,6 @@ import { FilterBarComponent } from './filter-bar/filter-bar.component';
     TravelJournalComponent
   ],
   exports: [TravelJournalComponent],
-  providers: [JournalApiService, SystemListApiService]
+  providers: [JournalApiService, SystemListApiService, FilterBarService]
 })
 export class TravelJournalModule {}

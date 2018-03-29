@@ -3,11 +3,11 @@
     <h2 class="card-title">{{title}}</h2>
     <div class="card-text row">
       <div class="col">
-        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalRecords / (limit / 10)" [(page)]="page" [maxSize]="10"
+        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalRecords / (params.limit / 10)" [(page)]="params.page" [maxSize]="10"
           [rotate]="false" [ellipses]="true" [boundaryLinks]="true" (pageChange)="onChange()"></ngb-pagination>
       </div>
       <div class="col">
-        Displaying {{(page - 1) * limit}} - {{(page) * data.length}} of {{totalRecords}}
+        Displaying {{(params.page - 1) * params.limit}} - {{(params.page) * data.length}} of {{totalRecords}}
         <div>
           <span>Loading: {{loading}}</span>
         </div>
@@ -20,12 +20,12 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="searchQuery">Search System Name: </label>
-              <input type="text" class="form-control" name="searchQuery" id="searchQuery" placeholder="Enter Query..." [(ngModel)]="searchQuery"
+              <input type="text" class="form-control" name="searchQuery" id="searchQuery" placeholder="Enter Query..." [(ngModel)]="params.searchQuery"
                 (ngModelChange)="onChange()">
             </div>
             <div class="form-group col">
               <label for="limit">Display Limit: </label>
-              <select class="form-control" name="limit" id="limit" [(ngModel)]="limit" (ngModelChange)="onChange()">
+              <select class="form-control" name="limit" id="limit" [(ngModel)]="params.limit" (ngModelChange)="onChange()">
                 <option value="" disabled>Select Value</option>
                 <option value="10">10</option>
                 <option value="25">25</option>
@@ -38,7 +38,7 @@
 
             <div class="form-group col">
               <label for="orderBy">Order By: </label>
-              <select class="form-control" name="orderBy" id="orderBy" [(ngModel)]="orderBy" (ngModelChange)="onChange()">
+              <select class="form-control" name="orderBy" id="orderBy" [(ngModel)]="params.orderBy" (ngModelChange)="onChange()">
                 <option value="" disabled>Select Value</option>
                 <option value="timestamp">Timestamp</option>
                 <option value="systemName">System Name</option>

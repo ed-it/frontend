@@ -1,7 +1,6 @@
 <app-journal-filter-bar title="System List"
-  [data]="data"
+  [data]="data | async"
   [totalRecords]="totalRecords"
-  [loading]="loading"
   (filterChange)="filterChange($event)"></app-journal-filter-bar>
 
 <div class="loading"

@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
 import { ActivatedRoute } from '@angular/router';
 import { SystemListApiService } from './system-list-api.service';
 
@@ -9,14 +11,16 @@ import { SystemListApiService } from './system-list-api.service';
   styleUrls: ['./system-list.component.scss']
 })
 export class SystemListComponent implements OnInit {
-  @Input('data') data: any[];
+  @Input('data') data: Observable<any>;
 
   openJumpLists: number[];
   totalRecords: number;
   loading: boolean;
 
-  constructor(private route: ActivatedRoute, private api: SystemListApiService) {
-    this.data = [];
+  constructor(
+    private route: ActivatedRoute,
+    private api: SystemListApiService
+  ) {
     this.openJumpLists = [];
     this.loading = false;
   }
@@ -25,11 +29,11 @@ export class SystemListComponent implements OnInit {
 
   filterChange(event) {
     this.openJumpLists = [];
-    const data = this.api.get(event);
-    data.subscribe((result: any) => {
-      this.totalRecords = result.totalRecords;
-      this.data = result.result;
-    });
+    this.data = this.api.get(event);
+    // data.subscribe((result: any) => {
+    //   this.totalRecords = result.totalRecords;
+    //   this.data = result.result;
+    // });
   }
 
   onJumpListToggle(index) {

@@ -4,17 +4,21 @@ import {
   Output,
   EventEmitter,
   OnInit,
-  OnChanges
+  OnChanges,
+  SimpleChanges,
+  SimpleChange
 } from '@angular/core';
 
+import { FilterBarService } from './filter-bar.service';
+
 const ORDER_BY_OPTIONS = [
-  { key: 'timestamp', label: 'Timestamp', },
+  { key: 'timestamp', label: 'Timestamp' },
   { key: 'systemName', label: 'System Name' }
 ];
 
 @Component({
   selector: 'app-journal-filter-bar',
-  // providers: [JournalApiService],
+  providers: [FilterBarService],
   templateUrl: './filter-bar.component.html',
   styleUrls: ['./filter-bar.component.scss']
 })
@@ -25,29 +29,12 @@ export class FilterBarComponent implements OnInit, OnChanges {
 
   @Input('totalRecords') totalRecords: number;
 
-  @Input('loading') loading: boolean;
-
   @Output('filterChange')
   filterChange: EventEmitter<any> = new EventEmitter<any>();
 
-  page: number;
+  params: any;
 
-  limit: number;
-
-  searchQuery: string;
-
-  orderBy: string;
-
-  order: string;
-
-  constructor() {
-    this.loading = false;
-    this.page = 1;
-    this.limit = 50;
-    this.searchQuery = '';
-    this.orderBy = 'timestamp';
-    this.order = 'ASC';
-  }
+  constructor(private fbs: FilterBarService) {}
 
   get totalLyJumped() {
     return (this.data || [])
@@ -61,18 +48,22 @@ export class FilterBarComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    const { page, limit, searchQuery, orderBy, order } = this;
-    this.filterChange.emit({ page, limit, searchQuery, orderBy, order });
+    this.params = this.fbs.getParameters();
+    this.filterChange.emit(this.params);
   }
 
-  ngOnChanges() {
-    // console.log(this);
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+    if (changes.data) {
+      const dataChange: SimpleChange = changes.data;
+      console.log(dataChange);
+    }
     // const { page, limit, searchQuery, orderBy, order } = this;
     // this.filterChange.emit({ page, limit, searchQuery, orderBy, order });
   }
 
   onChange() {
-    const { page, limit, searchQuery, orderBy, order } = this;
-    this.filterChange.emit({ page, limit, searchQuery, orderBy, order });
+    this.fbs.set(this.params);
+    this.filterChange.emit(this.params);
   }
 }
