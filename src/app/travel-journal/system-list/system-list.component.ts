@@ -11,30 +11,40 @@ import { SystemListApiService } from './system-list-api.service';
 export class SystemListComponent implements OnInit {
   @Input('data') data: any[];
 
+  openJumpLists: number[];
   totalRecords: number;
   loading: boolean;
 
-  constructor(
-    private route: ActivatedRoute,
-    private api: SystemListApiService
-  ) {
+  constructor(private route: ActivatedRoute, private api: SystemListApiService) {
     this.data = [];
+    this.openJumpLists = [];
     this.loading = false;
   }
 
-  ngOnInit() {
-    // this.route.data.subscribe(({ data }) => {
-    //   this.data = data.result;
-    //   this.totalRecords = data.totalRecords;
-    // });
-  }
+  ngOnInit() {}
 
   filterChange(event) {
+    this.openJumpLists = [];
     const data = this.api.get(event);
     data.subscribe((result: any) => {
       this.totalRecords = result.totalRecords;
       this.data = result.result;
     });
+  }
+
+  onJumpListToggle(index) {
+    const valueIndex = this.openJumpLists.indexOf(index);
+    console.log(index, valueIndex);
+    if (valueIndex > -1) {
+      this.openJumpLists.splice(valueIndex, 1);
+    } else {
+      this.openJumpLists.push(index);
+    }
+    console.log(this.openJumpLists);
+  }
+
+  isOpen(index) {
+    return this.openJumpLists.includes(index);
   }
 
   faction(params) {

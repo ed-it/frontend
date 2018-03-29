@@ -1,40 +1,53 @@
-<app-journal-filter-bar title="System List" [data]="data" [totalRecords]="totalRecords" [loading]="loading" (filterChange)="filterChange($event)"></app-journal-filter-bar>
+<app-journal-filter-bar title="System List"
+  [data]="data"
+  [totalRecords]="totalRecords"
+  [loading]="loading"
+  (filterChange)="filterChange($event)"></app-journal-filter-bar>
 
-<div class="loading" *ngIf="loading">
+<div class="loading"
+  *ngIf="loading">
   <h2>Loading...</h2>
 </div>
-<div class="list-group" *ngIf="!loading">
-  <div class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let system of data">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{system.params.StarSystem}}</h5>
-      <small class="text-muted">{{system.timestamp | date:'dd-MM-yyyy HH:mm'}}</small>
-    </div>
-    <p class="mb-1">
-      <strong>Faction:</strong> {{faction(system.params)}}
-      <br />
-      <strong>Economy:</strong> {{system.params.Economy_Localised}}
-      <strong>Security:</strong> {{system.params.Security_Localised}}
-    </p>
 
-    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-      <ngb-panel title="Jump List">
-        <ng-template ngbPanelContent>
-          <div class="card" *ngFor="let jump of system.jumps">
-            <div class="card-header" id="jumps-display">
-              <h5 class="mb-0">Date &amp; time: {{jump.timestamp | date:'dd-MM-yyyy HH:mm'}}</h5>
-            </div>
-            <div class="card-body">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <strong>Jump Distance:</strong> {{jump.jump.distance.toFixed(2)}}ly</li>
-                <li class="list-group-item">
-                  <strong>Fuel Used / Level:</strong> {{jump.fuel.used.toFixed(2)}} / {{jump.fuel.level.toFixed(2)}}</li>
-              </ul>
-            </div>
-          </div>
-        </ng-template>
-      </ngb-panel>
-    </ngb-accordion>
+<div class="list-group"
+  *ngIf="!loading">
+  <div class="list-group-item list-group-item-action flex-column align-items-start"
+
+    *ngFor="let system of data; let i = index">
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{system.params.StarSystem}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Total Jumps {{system.jumps.length}}</h6>
+        <p class="card-text">
+          <strong>Faction:</strong> {{faction(system.params)}}
+          <br />
+          <strong>Economy:</strong> {{system.params.Economy_Localised}}
+          <strong>Security:</strong> {{system.params.Security_Localised}}
+        </p>
+        <div class="card-text">
+          <h5><a name="jump-list" (click)="onJumpListToggle(i)">Jump List {{!isOpen(i) ? '+' : '-'}}</a></h5>
+          <table class="table table-bordered"
+            [hidden]="!isOpen(i)">
+
+            <thead>
+              <tr>
+                <th scope="col">Jump Date &amp; time</th>
+                <th scope="col">Jump Distance (Ly)</th>
+                <th scope="col">Fuel Used / Level (Tonne)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let jump of system.jumps">
+                <td>{{jump.timestamp | date:'dd/MM/yyyy, HH:mm'}}</td>
+                <td>{{jump.jump.distance.toFixed(2)}}</td>
+                <td>{{jump.fuel.used.toFixed(2)}} / {{jump.fuel.level.toFixed(2)}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
