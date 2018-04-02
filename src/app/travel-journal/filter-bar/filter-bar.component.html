@@ -2,16 +2,15 @@
   <div class="card-body">
     <h2 class="card-title">{{title}}</h2>
     <div class="card-text row">
-      <div class="col">
-        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalRecords / (params.limit / 10)" [(page)]="params.page" [maxSize]="10"
+      <div class="col" *ngIf="data | async as result">
+        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="result.totalRecords / (params.limit / 10)" [(page)]="params.page" [maxSize]="10"
           [rotate]="false" [ellipses]="true" [boundaryLinks]="true" (pageChange)="onChange()"></ngb-pagination>
       </div>
-      <div class="col">
-        Displaying {{(params.page - 1) * params.limit}} - {{(params.page) * data.length}} of {{totalRecords}}
+      <div class="col" *ngIf="data | async as result">
+        Displaying {{(params.page - 1) * params.limit}} - {{(params.page) * result.result.length}} of {{result.totalRecords}}
         <div>
           <span>Loading: {{loading}}</span>
         </div>
-        <ng4-loading-spinner></ng4-loading-spinner>
       </div>
     </div>
     <div class="card-text row">

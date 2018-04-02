@@ -13,9 +13,9 @@ import { SystemListApiService } from './system-list-api.service';
 export class SystemListComponent implements OnInit {
   @Input('data') data: Observable<any>;
 
-  openJumpLists: number[];
-  totalRecords: number;
-  loading: boolean;
+  private openJumpLists: number[];
+  private totalRecords: number;
+  private loading: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,10 +30,6 @@ export class SystemListComponent implements OnInit {
   filterChange(event) {
     this.openJumpLists = [];
     this.data = this.api.get(event);
-    // data.subscribe((result: any) => {
-    //   this.totalRecords = result.totalRecords;
-    //   this.data = result.result;
-    // });
   }
 
   onJumpListToggle(index) {

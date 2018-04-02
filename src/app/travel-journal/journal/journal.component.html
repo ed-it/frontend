@@ -2,11 +2,8 @@
 
   <app-journal-filter-bar title="System Journal" [data]="data" [totalRecords]="totalRecords" (filterChange)="filterChange($event)"></app-journal-filter-bar>
 
-  <div class="loading" *ngIf="loading">
-    <h2>Loading...</h2>
-  </div>
-  <div class="list-group" *ngIf="!loading">
-    <div class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let jump of data">
+  <div class="list-group" *ngIf="data | async as result">
+    <div class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let jump of result.result">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{jump.params.StarSystem}}</h5>
         <small class="text-muted">{{jump.timestamp | date:'dd-MM-yyyy HH:mm'}}</small>
