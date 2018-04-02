@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-market-toolbar',
@@ -11,7 +12,10 @@ export class MarketToolbarComponent implements OnInit {
 
   @Input('lastUpdate') lastUpdate: Date;
 
-  @Output('filterChange') filterChange: EventEmitter<any> = new EventEmitter<any>();
+  private debouncer:Subject<object> = new Subject();
+
+  @Output('filterChange')
+  filterChange: EventEmitter<any> = new EventEmitter<any>();
 
   onlyShowProfitable: boolean;
 
@@ -26,12 +30,16 @@ export class MarketToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    const { profitMargin, searchQuery, onlyShowProfitable } = this;
-    this.filterChange.emit({ profitMargin, searchQuery, onlyShowProfitable });
+    // const { profitMargin, searchQuery, onlyShowProfitable } = this;
+    // this.filterChange.emit({ profitMargin, searchQuery, onlyShowProfitable });
+    this.debouncer.debounceTime(500).subscribe(options => {
+      this.filterChange.emit(options);
+    })
   }
 
   onChange() {
     const { profitMargin, searchQuery, onlyShowProfitable } = this;
-    this.filterChange.emit({ profitMargin, searchQuery, onlyShowProfitable });
+    // this.filterChange.emit({ profitMargin, searchQuery, onlyShowProfitable });
+    this.debouncer.next({ profitMargin, searchQuery, onlyShowProfitable });
   }
 }

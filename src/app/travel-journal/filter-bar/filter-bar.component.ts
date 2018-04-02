@@ -9,6 +9,8 @@ import {
   SimpleChange
 } from '@angular/core';
 
+import { Subject } from 'rxjs/Subject';
+
 import { FilterBarService } from './filter-bar.service';
 
 const ORDER_BY_OPTIONS = [
@@ -32,6 +34,8 @@ export class FilterBarComponent implements OnInit, OnChanges {
   @Output('filterChange')
   filterChange: EventEmitter<any> = new EventEmitter<any>();
 
+  private debouncer:Subject<object> = new Subject();
+
   params: any;
 
   constructor(private fbs: FilterBarService) {}
@@ -50,6 +54,10 @@ export class FilterBarComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.params = this.fbs.getParameters();
     this.filterChange.emit(this.params);
+
+    this.debouncer.debounceTime(500).subscribe(options => {
+      this.filterChange.emit(options);
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -64,6 +72,7 @@ export class FilterBarComponent implements OnInit, OnChanges {
 
   onChange() {
     this.fbs.set(this.params);
-    this.filterChange.emit(this.params);
+    // this.filterChange.emit(this.params);
+    this.debouncer.next(this.params);
   }
 }
