@@ -1,4 +1,3 @@
-// counter.ts
 import { Action } from '@ngrx/store';
 
 export interface PipAction extends Action {
@@ -21,11 +20,11 @@ const defaultState: PipState = {
 };
 
 function valToElm(index, val) {
-  if (index < Math.ceil(val)) {
+  if (index <= Math.ceil(val)) {
     const check = val - index;
-    if (Number.isInteger(check) && check > 1) {
+    if (check >= 1) {
       return 2;
-    } else if (Number.isInteger(check) && check > 0) {
+    } else if (check > 0 && check < 1) {
       return 1;
     } else {
       return 0;
@@ -37,9 +36,9 @@ export function pipReducer(state: PipState = defaultState, action: PipAction) {
   switch (action.type) {
     case UPDATE:
       return {
-        sys: state.sys.map((item, i) => valToElm(i, Math.ceil(this.payload.sys))),
-        eng: state.eng.map((item, i) => valToElm(i, Math.ceil(this.payload.sys))),
-        wep: state.wep.map((item, i) => valToElm(i, Math.ceil(this.payload.sys)))
+        sys: state.sys.map((item, i) => valToElm(i, action.payload.sys)),
+        eng: state.eng.map((item, i) => valToElm(i, action.payload.eng)),
+        wep: state.wep.map((item, i) => valToElm(i, action.payload.wep))
       };
     case RESET:
       return defaultState;
