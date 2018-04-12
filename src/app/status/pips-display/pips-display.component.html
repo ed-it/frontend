@@ -3,29 +3,25 @@
   <h3 class="card-title">Pip Management</h3>
 
   <div class="card-body">
-    <div id="pip-container">
+    <div id="pip-container" *ngIf="pips$ | async; let pips; else noPips">
+    
       <div class="heading"><h3>Sys</h3></div>
       <div class="heading"><h3>Eng</h3></div>
       <div class="heading"><h3>Wep</h3></div>
 
       <div #system class="pips systems">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <span *ngFor="let display of pips.sys" [ngClass]="display | pipDisplay"></span>
       </div>
       <div #engine class="pips engines">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <span *ngFor="let display of pips.eng" [ngClass]="display | pipDisplay"></span>
       </div>
       <div #weapon class="pips weapons">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <span *ngFor="let display of pips.wep" [ngClass]="display | pipDisplay"></span>
       </div>
     </div>
+
+    <ng-template #noPips>
+      <h2>No pip data</h2>
+    </ng-template>
   </div>
 </section>

@@ -6,11 +6,13 @@ import { StatusRoutingModule } from './status-routing.module';
 
 import { StatusComponent } from './status.component';
 import { ShipStatus } from './ship-status/ship-status.component';
-import { PipsDisplay } from './pips-display/pips-display.component';
+import { PipsDisplayComponent } from './pips-display/pips-display.component';
+
+import { PipDisplayPipe } from './pips-display/pip-pipe';
 
 @NgModule({
   imports: [CommonModule, NgbModule.forRoot(), StatusRoutingModule],
-  declarations: [ShipStatus, PipsDisplay, StatusComponent],
-  exports: [StatusComponent]
+  declarations: [PipDisplayPipe, ShipStatus, PipsDisplayComponent, StatusComponent],
+  exports: [PipDisplayPipe, StatusComponent]
 })
 export class StatusModule {}
