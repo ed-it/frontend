@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import * as Rx from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 
 import { Client } from 'nes';
 
 @Injectable()
 export class MarketStream {
-  private subject: Rx.Subject<MessageEvent>;
+  private subject: Subject<MessageEvent>;
 
   constructor() {}
 
-  public connect(): Rx.Subject<MessageEvent> {
+  public connect(): Subject<MessageEvent> {
     if (!this.subject) {
       this.subject = this.subscribe();
       console.log('Successfully connected');
@@ -17,21 +19,18 @@ export class MarketStream {
     return this.subject;
   }
 
-  private subscribe(): Rx.Subject<MessageEvent> {
-    let client = new Client('ws://localhost:12342');
+  private subscribe(): Subject<MessageEvent> {
+    const client = new Client('ws://localhost:12342');
 
-    let observable = Rx.Observable.create((obs: Rx.Observer<MessageEvent>) => {
+    const observable = Observable.create((obs: Observer<MessageEvent>) => {
       client.onUpdate = obs.next.bind(obs);
       client.onError = obs.error.bind(obs);
       client.onDisconnect = obs.complete.bind(obs);
       client.connect();
     });
-    let observer = {
-      next: (data: Object) => {
-        console.log(data);
-        client.request(JSON.stringify(data));
-      }
+    const observer = {
+      next: (data: Object) => client.request(JSON.stringify(data))
     };
-    return Rx.Subject.create(observer, observable);
+    return Subject.create(observer, observable);
   }
 }

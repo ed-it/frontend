@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 
@@ -19,13 +19,17 @@ import { TravelJournalModule } from './travel-journal/travel-journal.module';
 import { PipDisplayPipe } from './status/pips-display/pip-pipe';
 import { pipReducer } from './status/pips-display/pip-reducer';
 
+import { marketReducer } from './market/market-reducer';
+import { marketToolbarReducer } from './market/market-toolbar/market-toolbar.reducer';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
-    StoreModule.forRoot({ pips: pipReducer }),
+    StoreModule.forRoot({ pips: pipReducer, market: marketReducer, marketToolbar: marketToolbarReducer }),
     FormsModule,
+    ReactiveFormsModule,
     NgbModule.forRoot(),
     SharedModule,
     MarketModule,

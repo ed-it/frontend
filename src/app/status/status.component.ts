@@ -22,7 +22,6 @@ export class StatusComponent implements OnInit {
       console.log('Subscription', data);
       const { event, timestamp, params } = data;
       if (event === 'Status') {
-        console.debug(`Triggering ${event}`, params);
         this.statusData = params;
         this.statusDataKeys = Object.keys(this.statusData);
       }
@@ -32,7 +31,6 @@ export class StatusComponent implements OnInit {
     lastStatusData.subscribe((data: any) => {
       const { event, timestamp, params } = data;
       if (event === 'Status') {
-        console.debug(`Triggering ${event}`, params);
         this.statusData = params;
         this.statusDataKeys = Object.keys(this.statusData);
       }

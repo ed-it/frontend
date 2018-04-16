@@ -11,33 +11,33 @@
     <div class="row">
       <h3>Current Location</h3>
     </div>
-    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation.params">
+    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation">
       <div class="col-sm">
-        Star System: {{statusData.currentLocation.params.StarSystem}}
+        Star System: {{statusData.currentLocation.StarSystem}}
       </div>
     </div>
-    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation.params.StationName">
+    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation.StationName">
       <div class="col-sm">
-        Station: {{statusData.currentLocation.params.StationName}} ({{statusData.currentLocation.params.DistFromStarLS.toFixed(2)}}ls)
+        Station: {{statusData.currentLocation.StationName}} ({{statusData.currentLocation.DistFromStarLS.toFixed(2)}}ls)
       </div>
       <div class="col-sm">
-        Faction: {{statusData.currentLocation.params.StationFaction}} ({{statusData.currentLocation.params.StationGovernment_Localised}})
+        Faction: {{statusData.currentLocation.StationFaction}} ({{statusData.currentLocation.StationGovernment_Localised}})
       </div>
     </div>
-    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation.params.StationName">
+    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation.StationName">
       <div class="col-sm">
         <ul>
-          <li>Economy: {{statusData.currentLocation.params.StationEconomy_Localised}}</li>
-          <li>State: {{statusData.currentLocation.params.FactionState}}</li>
+          <li>Economy: {{statusData.currentLocation.StationEconomy_Localised}}</li>
+          <li>State: {{statusData.currentLocation.FactionState}}</li>
         </ul>
       </div>
     </div>
-    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation.params.StationServices">
+    <div class="row" *ngIf="statusData.currentLocation && statusData.currentLocation.StationServices">
       <div class="col-sm">
         <h3>Station Services</h3>
       </div>
       <div class="col-sm">
-        <!-- <span *ngFor="let service of statusData.currentLocation.params.StationServices}}">{{service}}</span> -->
+        <!-- <span *ngFor="let service of statusData.currentLocation.StationServices}}">{{service}}</span> -->
       </div>
     </div>
   </div>
