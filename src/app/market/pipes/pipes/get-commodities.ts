@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { MarketToolbarState } from '../market-toolbar/market-toolbar.reducer';
+import { MarketToolbarState } from '../../components/market-toolbar/market-toolbar.component';
 
 @Pipe({
   name: 'getCommodities'
@@ -12,9 +12,13 @@ export class GetCommoditiesPipe implements PipeTransform {
       return [];
     }
     let commodities = c.commodities;
-    commodities = commodities.filter((commodity: any) => commodity.Name_Localised.toLowerCase().includes(filter.searchQuery.toLowerCase()));
+    commodities = commodities.filter((commodity: any) =>
+      commodity.Name_Localised.toLowerCase().includes(filter.searchQuery.toLowerCase())
+    );
     if (filter.filterUnprofitable) {
-      commodities = commodities.filter((item) => item.Stock < item.Demand && item.SellPrice / item.MeanPrice * 100 > filter.profitMargin);
+      commodities = commodities.filter(
+        item => item.Stock < item.Demand && item.SellPrice / item.MeanPrice * 100 > filter.profitMargin
+      );
     }
     return commodities;
   }

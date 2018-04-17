@@ -30,7 +30,7 @@
     <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
       <ngb-panel title="Jump List">
         <ng-template ngbPanelContent>
-          <div class="card" *ngFor="let jump of systems[system].jumps">
+          <div class="card" *ngFor="let jump of systems[system].jumps | arraySort:'timestamp'">
             <div class="card-header" id="jumps-display">
               <h5 class="mb-0">Date &amp; time: {{jump.timestamp | date:'dd-MM-yyyy HH:mm'}}</h5>
             </div>

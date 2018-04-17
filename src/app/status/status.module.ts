@@ -10,11 +10,11 @@ import { PipsDisplayComponent } from './pips-display/pips-display.component';
 
 import { PipDisplayPipe } from './pips-display/pip-pipe';
 
-import { ReversePipe } from '../shared/pipes/reverse';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  imports: [CommonModule, NgbModule.forRoot(), StatusRoutingModule],
-  declarations: [PipDisplayPipe, ReversePipe, ShipStatus, PipsDisplayComponent, StatusComponent],
-  exports: [PipDisplayPipe, ReversePipe, StatusComponent]
+  imports: [CommonModule, SharedModule, NgbModule.forRoot(), StatusRoutingModule],
+  declarations: [PipDisplayPipe, ShipStatus, PipsDisplayComponent, StatusComponent],
+  exports: [PipDisplayPipe, StatusComponent]
 })
 export class StatusModule {}
