@@ -11,6 +11,8 @@ import { reducers, effects } from './store';
 import { StatusContainerComponent } from './containers/status-container/status-container.component';
 
 // Components
+import { PipsDisplayComponent } from './components/pips-display/pips-display.component';
+import { ShipStatusComponent } from './components/ship-status/ship-status.component';
 
 // Services
 import { StatusService } from './services/status.service';
@@ -18,16 +20,20 @@ import { StatusService } from './services/status.service';
 import { StatusRoutingModule } from './routes/status.routing';
 
 // Guards
-import {StatusGuard} from './guards/status.guard';
+import { StatusGuard } from './guards/status.guard';
+
+// Pipes
+import { PipDisplayPipe } from './pipes/pip-display.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forFeature('status', reducers),
     EffectsModule.forFeature(effects),
-    StatusRoutingModule
+    StatusRoutingModule,
+    SharedModule
   ],
-  declarations: [StatusContainerComponent],
+  declarations: [PipDisplayPipe, StatusContainerComponent, PipsDisplayComponent, ShipStatusComponent],
   providers: [StatusService, StatusGuard]
 })
 export class StatusModule {}

@@ -24,9 +24,9 @@ import { TravelJournalModule } from './travel-journal/travel-journal.module';
   imports: [
     BrowserModule,
     HttpClientModule,
-    StoreDevtoolsModule.instrument(),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument(),
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),

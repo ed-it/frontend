@@ -16,7 +16,7 @@ export const initialData: statusModel.StatusState = {
   loaded: false
 };
 
-export function reducers(state: statusModel.StatusState = initialData, action: statusActions.StatusAction) {
+export function reducer(state: statusModel.StatusState = initialData, action: statusActions.StatusAction) {
   switch (action.type) {
     case statusActions.LOAD_STATUS: {
       return {
@@ -33,6 +33,7 @@ export function reducers(state: statusModel.StatusState = initialData, action: s
     }
     case statusActions.LOAD_STATUS_SUCCESS: {
       const data = action.payload;
+
       return {
         ...state,
         loading: false,

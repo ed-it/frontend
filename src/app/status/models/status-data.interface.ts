@@ -1,3 +1,9 @@
+export interface PipDisplay {
+  sys: number[];
+  eng: number[];
+  wep: number[];
+}
+
 export interface StatusParams {
   pips: any;
   status: any;
