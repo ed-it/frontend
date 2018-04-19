@@ -1,20 +1,39 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
-import { StatusRoutingModule } from './status-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
-import { StatusComponent } from './status.component';
-import { ShipStatus } from './ship-status/ship-status.component';
-import { PipsDisplayComponent } from './pips-display/pips-display.component';
+import { reducers, effects } from './store';
 
-import { PipDisplayPipe } from './pips-display/pip-pipe';
+// Containers
+import { StatusContainerComponent } from './containers/status-container/status-container.component';
 
-import { ReversePipe } from '../shared/pipes/reverse';
+// Components
+import { PipsDisplayComponent } from './components/pips-display/pips-display.component';
+import { ShipStatusComponent } from './components/ship-status/ship-status.component';
+
+// Services
+import { StatusService } from './services/status.service';
+// Routing
+import { StatusRoutingModule } from './routes/status.routing';
+
+// Guards
+import { StatusGuard } from './guards/status.guard';
+
+// Pipes
+import { PipDisplayPipe } from './pipes/pip-display.pipe';
 
 @NgModule({
-  imports: [CommonModule, NgbModule.forRoot(), StatusRoutingModule],
-  declarations: [PipDisplayPipe, ReversePipe, ShipStatus, PipsDisplayComponent, StatusComponent],
-  exports: [PipDisplayPipe, ReversePipe, StatusComponent]
+  imports: [
+    CommonModule,
+    StoreModule.forFeature('status', reducers),
+    EffectsModule.forFeature(effects),
+    StatusRoutingModule,
+    SharedModule
+  ],
+  declarations: [PipDisplayPipe, StatusContainerComponent, PipsDisplayComponent, ShipStatusComponent],
+  providers: [StatusService, StatusGuard]
 })
 export class StatusModule {}

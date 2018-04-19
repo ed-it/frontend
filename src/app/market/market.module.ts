@@ -1,53 +1,50 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
-import { MarketRoutingModule } from './market-routes.module';
+import { SharedModule } from '../shared/shared.module';
 
-import { MarketComponent } from './market.component';
-import { MarketToolbarComponent } from './market-toolbar/market-toolbar.component';
-import { MarketResolver } from './market.resolver';
-import { MarketApi } from './market-api.service';
+// Reducers
+import { reducers, effects } from './store';
 
-import { KeyArrayPipe } from './pipes/key-array';
-import { IsDisabledPipe } from './pipes/is-disabled';
-import { GetCommoditiesPipe } from './pipes/get-commodities';
-import { GoodBuyPipe } from './pipes/good-buy';
-import { BadSellPipe } from './pipes/bad-sell';
-import { ProfitPipe } from './pipes/profit';
-import { marketReducer } from './market-reducer';
-import { marketToolbarReducer } from './market-toolbar/market-toolbar.reducer';
+// Containers
+import { MarketContainerComponent } from './containers/market-container/market-container.component';
+
+// Components
+import { MarketToolbarComponent } from './components/market-toolbar/market-toolbar.component';
+import { MarketCategoriesComponent } from './components/market-categories/market-categories.component';
+import { MarketTableComponent } from './components/market-table/market-table.component';
+
+// Services
+import { MarketService } from './services/market.service';
+import { MarketStream } from './services/market-stream.service';
+
+// Pipes
+import { MarketPipesModule } from './pipes/market-pipes.module';
+
+// Routing
+import { MarketRoutingModule } from './routes/market.routes';
+
+// Guards
+import { MarketGuard } from './guards/market.guard';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    SharedModule,
+    StoreModule.forFeature('market', reducers),
+    EffectsModule.forFeature(effects),
+    MarketRoutingModule,
     NgbModule.forRoot(),
-    MarketRoutingModule
+    ReactiveFormsModule,
+    MarketPipesModule
   ],
-  declarations: [
-    KeyArrayPipe,
-    IsDisabledPipe,
-    GoodBuyPipe,
-    BadSellPipe,
-    GetCommoditiesPipe,
-    ProfitPipe,
-    MarketComponent,
-    MarketToolbarComponent
-  ],
-  exports: [
-    KeyArrayPipe,
-    IsDisabledPipe,
-    GoodBuyPipe,
-    BadSellPipe,
-    GetCommoditiesPipe,
-    ProfitPipe,
-    MarketComponent,
-    MarketToolbarComponent
-  ],
-  providers: [MarketApi, MarketResolver]
+  providers: [MarketService, MarketStream, MarketGuard],
+  declarations: [MarketTableComponent, MarketToolbarComponent, MarketCategoriesComponent, MarketContainerComponent],
+  entryComponents: [MarketContainerComponent]
 })
 export class MarketModule {}

@@ -1,0 +1,53 @@
+<div class="card">
+
+  <div class="card-body">
+    <h5 class="card-title">
+      <strong>Market Data</strong>: {{data.params.stationName}} - {{data.params.systemName}}</h5>
+    <h6 class="card-subtitle">Last Updated: {{data.timestamp | date:'dd-MM-yyyy HH:mm'}}</h6>
+    <div class="card-text">
+      <hr />
+      <form novalidate
+        [formGroup]="toolbarGroup$">
+
+        <div class="form-row">
+
+          <div class="col">
+            <label for="profitMargin">Profit Margin</label>
+            <div class="input-group">
+              <input type="number"
+                class="form-control"
+                id="profitMargin"
+                name="profitMargin"
+                placeholder="Profit Threshold"
+                formControlName="profitMargin">
+              <div class="input-group-append">
+                <div class="input-group-text">%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <label for="searchFilter">Filter Commodity</label>
+            <input type="text"
+              class="form-control"
+              name="searchFilter"
+              id="searchFilter"
+              placeholder="Filter Commodity"
+              formControlName="searchQuery">
+          </div>
+
+          <div class="col">
+            <label class="form-check-label"
+              for="onlyShowProfitable">
+              <input class="form-check-input"
+                type="checkbox"
+                id="onlyShowProfitable"
+                name="onlyShowProfitable"
+                formControlName="filterUnprofitable"> Only show profitable
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
