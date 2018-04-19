@@ -29,6 +29,9 @@ import { MarketPipesModule } from './pipes/market-pipes.module';
 // Routing
 import { MarketRoutingModule } from './routes/market.routes';
 
+// Guards
+import { MarketGuard } from './guards/market.guard';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -40,7 +43,7 @@ import { MarketRoutingModule } from './routes/market.routes';
     ReactiveFormsModule,
     MarketPipesModule
   ],
-  providers: [MarketService],
+  providers: [MarketService, MarketGuard],
   declarations: [MarketTableComponent, MarketToolbarComponent, MarketCategoriesComponent, MarketContainerComponent]
 })
 export class MarketModule {}

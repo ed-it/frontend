@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { map, exhaustMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
 import * as marketActions from '../actions/market.actions';
@@ -12,7 +12,7 @@ export class MarketEffects {
 
   @Effect()
   loadMarket$ = this.actions$.ofType(marketActions.LOAD_MARKET).pipe(
-    switchMap(() => {
+    exhaustMap(() => {
       return this.marketService
         .getMarketData()
         .pipe(

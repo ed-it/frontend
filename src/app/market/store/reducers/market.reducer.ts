@@ -32,10 +32,12 @@ export function reducer(state: MarketState = initialState, action: marketActions
       };
     }
     case marketActions.LOAD_MARKET_FAIL: {
+      const data = action.payload;
       return {
         ...state,
         loading: false,
-        loaded: false
+        loaded: false,
+        data
       };
     }
 

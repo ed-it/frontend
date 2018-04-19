@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -17,6 +17,10 @@ export interface MarketToolbarState {
   templateUrl: './market-toolbar.component.html'
 })
 export class MarketToolbarComponent implements OnInit, OnDestroy {
+
+  @Input()
+  data: any;
+
   @Output() filterUpdated: EventEmitter<MarketToolbarState> = new EventEmitter<MarketToolbarState>();
 
   toolbarGroup$: FormGroup;

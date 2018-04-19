@@ -5,15 +5,18 @@ import { MarketToolbarState } from '../market-toolbar/market-toolbar.component';
   selector: 'app-market-categories',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ngb-tabset>
-      {{categories | json}}
-      <ngb-tab *ngFor="let category of keys | arraySort" [disabled]="getCommodities(category) | isDisabled:filter">
-        <ng-template ngbTabTitle><b>{{category}}</b></ng-template>
-        <ng-template ngbTabContent>
-          <app-market-table [categoryKey]="category" [commodities]="getCommodities(category)" [filter]="filter"></app-market-table>
-        </ng-template>
-      </ngb-tab>
-    </ngb-tabset>
+    <div class="card">
+      <div class="card-body">
+        <ngb-tabset type="pills" justify="left">
+          <ngb-tab *ngFor="let category of keys | arraySort" [disabled]="getCommodities(category) | isDisabled:filter">
+            <ng-template ngbTabTitle><b>{{category}}</b></ng-template>
+            <ng-template ngbTabContent>
+              <app-market-table [categoryKey]="category" [commodities]="getCommodities(category)" [filter]="filter"></app-market-table>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
   `
 })
 export class MarketCategoriesComponent {
