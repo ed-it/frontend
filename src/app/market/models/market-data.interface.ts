@@ -1,4 +1,4 @@
-interface MarketDataParams {
+export interface MarketDataParams {
   id: string;
   systemName: string;
   stationName: string;

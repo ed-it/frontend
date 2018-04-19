@@ -43,7 +43,8 @@ import { MarketGuard } from './guards/market.guard';
     ReactiveFormsModule,
     MarketPipesModule
   ],
-  providers: [MarketService, MarketGuard],
-  declarations: [MarketTableComponent, MarketToolbarComponent, MarketCategoriesComponent, MarketContainerComponent]
+  providers: [MarketService, MarketStream, MarketGuard],
+  declarations: [MarketTableComponent, MarketToolbarComponent, MarketCategoriesComponent, MarketContainerComponent],
+  entryComponents: [MarketContainerComponent]
 })
 export class MarketModule {}

@@ -1,13 +1,9 @@
 import * as marketActions from '../actions/market.actions';
-import { MarketData } from '../../models/MarketData.interface';
+import { MarketData } from '../../models/market-data.interface';
 
-export interface MarketState {
-  data: MarketData;
-  loaded: boolean;
-  loading: boolean;
-}
+import * as marketModels from '../../models';
 
-export const initialState: MarketState = {
+export const initialState: marketModels.MarketState = {
   data: {
     event: '',
     timestamp: 0,
@@ -23,7 +19,10 @@ export const initialState: MarketState = {
   loading: false
 };
 
-export function reducer(state: MarketState = initialState, action: marketActions.MarketAction): MarketState {
+export function reducer(
+  state: marketModels.MarketState = initialState,
+  action: marketActions.MarketAction
+): marketModels.MarketState {
   switch (action.type) {
     case marketActions.LOAD_MARKET: {
       return {
@@ -56,8 +55,8 @@ export function reducer(state: MarketState = initialState, action: marketActions
   }
 }
 
-export const getMarketLoading = (state: MarketState) => state.loading;
-export const getMarketLoaded = (state: MarketState) => state.loaded;
-export const getMarketData = (state: MarketState) => state.data;
+export const getMarketLoading = (state: marketModels.MarketState) => state.loading;
+export const getMarketLoaded = (state: marketModels.MarketState) => state.loaded;
+export const getMarketData = (state: marketModels.MarketState) => state.data;
 
-export const getMarketCategories = (state: MarketState) => state.data.params.categoryKeys;
+export const getMarketCategories = (state: marketModels.MarketState) => state.data.params.categoryKeys;

@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { Store, select } from '@ngrx/store';
 
 import * as marketStore from '../../store/';
-import { MarketData } from '../../models/MarketData.interface';
+import * as marketModel from '../../models';
 import { MarketToolbarState } from '../../components/market-toolbar/market-toolbar.component';
+import { MarketStream } from '../../services/market-stream.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-market-container',
@@ -20,14 +22,20 @@ import { MarketToolbarState } from '../../components/market-toolbar/market-toolb
     </ng-template>
   `
 })
-export class MarketContainerComponent implements OnInit {
+export class MarketContainerComponent implements OnInit, OnDestroy {
   filter: MarketToolbarState;
-  data$: Observable<MarketData>;
+  data$: Observable<marketModel.MarketData>;
+  stream$: Subscription;
 
-  constructor(private store: Store<marketStore.MarketToolState>) {}
+  constructor(private store: Store<marketModel.MarketToolState>, private stream: MarketStream) {}
 
   ngOnInit() {
     this.data$ = this.store.pipe(select(marketStore.getMarketData));
+    this.stream$ = this.stream.connect().subscribe();
+  }
+
+  ngOnDestroy() {
+    this.stream$.unsubscribe();
   }
 
   onFilterUpdated(filter: MarketToolbarState) {

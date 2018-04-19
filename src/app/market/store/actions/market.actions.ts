@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { MarketData } from '../../models/MarketData.interface';
+import * as marketModel from '../../models';
 
 export const LOAD_MARKET = '[Market] Load Market';
 export const LOAD_MARKET_FAIL = '[Market] Load Market Fail';
@@ -17,7 +17,7 @@ export class LoadMarketFail implements Action {
 
 export class LoadMarketSuccess implements Action {
   readonly type = LOAD_MARKET_SUCCESS;
-  constructor(public payload: MarketData) {}
+  constructor(public payload: marketModel.MarketData) {}
 }
 
 export type MarketAction = LoadMarket | LoadMarketFail | LoadMarketSuccess;

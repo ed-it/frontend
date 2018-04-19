@@ -1,20 +1,17 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
 import * as marketReducer from './market.reducer';
+import * as marketModel from '../../models';
 
-export interface MarketToolState {
-  market: marketReducer.MarketState;
-}
-
-export const reducers: ActionReducerMap<MarketToolState> = {
+export const reducers: ActionReducerMap<marketModel.MarketToolState> = {
   market: marketReducer.reducer
 };
 
-export const getMarketState = createFeatureSelector<MarketToolState>('market');
+export const getMarketState = createFeatureSelector<marketModel.MarketToolState>('market');
 
 // Market State
 
-export const getMarket = createSelector(getMarketState, (state: MarketToolState) => state.market);
+export const getMarket = createSelector(getMarketState, (state: marketModel.MarketToolState) => state.market);
 
 export const getMarketData = createSelector(getMarket, marketReducer.getMarketData);
 export const getMarketLoading = createSelector(getMarket, marketReducer.getMarketLoading);

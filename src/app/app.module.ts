@@ -18,8 +18,6 @@ import { StatusModule } from './status/status.module';
 import { LocationModule } from './location/location.module';
 import { TravelJournalModule } from './travel-journal/travel-journal.module';
 
-import { PipDisplayPipe } from './status/pips-display/pip-pipe';
-import { pipReducer } from './status/pips-display/pip-reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +25,7 @@ import { pipReducer } from './status/pips-display/pip-reducer';
     BrowserModule,
     HttpClientModule,
     StoreDevtoolsModule.instrument(),
-    StoreModule.forRoot({ pips: pipReducer }),
+    StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     FormsModule,
     ReactiveFormsModule,
