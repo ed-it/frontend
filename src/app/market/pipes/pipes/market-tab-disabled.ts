@@ -4,16 +4,12 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'isDisabled'
 })
 export class IsDisabledPipe implements PipeTransform {
-  transform(category: string, categories: any[] = [], filter: any): boolean {
-    const c = categories[category];
-    if (!c) {
-      return true;
+  transform(commodities: any[] = [], filter: any = {}): boolean {
+    if (filter.searchQuery) {
+      commodities = commodities.filter((commodity: any) =>
+        commodity.Name_Localised.toLowerCase().includes(filter.searchQuery.toLowerCase())
+      );
     }
-
-    let commodities = c.commodities;
-    commodities = commodities.filter((commodity: any) =>
-      commodity.Name_Localised.toLowerCase().includes(filter.searchQuery.toLowerCase())
-    );
     if (filter.filterUnprofitable) {
       commodities = commodities.filter(
         item => item.Stock < item.Demand && item.SellPrice / item.MeanPrice * 100 > filter.profitMargin

@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { MarketComponent } from './market.component';
-import { MarketResolver } from './market.resolver';
+import { MarketContainerComponent } from '../containers/market-container/market-container.component';
 
 const routes: Routes = [
   {
     path: 'market',
-    children: [{ path: '', component: MarketComponent, resolve: { data: MarketResolver } }]
+    children: [{ path: '', component: MarketContainerComponent }]
   }
 ];
 

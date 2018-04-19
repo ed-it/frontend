@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { FormStyle } from '@angular/common';
 
+import { debounceTime, startWith } from 'rxjs/operators';
+
 export interface MarketToolbarState {
   searchQuery: string;
   profitMargin: number;
@@ -29,7 +31,9 @@ export class MarketToolbarComponent implements OnInit, OnDestroy {
       filterUnprofitable: this.fb.control(false)
     });
 
-    this.changeListener$ = this.toolbarGroup$.valueChanges.debounceTime(200).subscribe(this.onChange.bind(this));
+    this.changeListener$ = this.toolbarGroup$.valueChanges
+      .pipe(debounceTime(200), startWith({ searchQuery: '', profitMargin: 110, filterUnprofitable: false }))
+      .subscribe(this.onChange.bind(this));
   }
 
   ngOnDestroy() {

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [{
-  path: '', redirectTo: 'status', pathMatch: 'full'
+  path: '', redirectTo: 'market', pathMatch: 'full'
 }];
 
 @NgModule({

@@ -4,13 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { MarketState } from './market-reducer';
+import { MarketData } from './../models/MarketData.interface';
 
 @Injectable()
-export class MarketApi {
+export class MarketService {
   constructor(private http: HttpClient) {}
 
-  public getMarketData(): Observable<Object> {
-    return this.http.get('http://localhost:12342/api/market');
+  public getMarketData(): Observable<MarketData> {
+    return this.http.get<MarketData>('http://localhost:12342/api/market');
   }
 }
