@@ -15,8 +15,7 @@ import { AppComponent } from './app.component';
 
 import { MarketModule } from './market/market.module';
 import { StatusModule } from './status/status.module';
-import { LocationModule } from './location/location.module';
-import { TravelJournalModule } from './travel-journal/travel-journal.module';
+import { JournalModule } from './journal/journal.module';
 
 
 @NgModule({
@@ -33,8 +32,7 @@ import { TravelJournalModule } from './travel-journal/travel-journal.module';
     SharedModule,
     MarketModule,
     StatusModule,
-    LocationModule,
-    TravelJournalModule,
+    JournalModule,
     AppRoutingModule
   ],
   bootstrap: [AppComponent]

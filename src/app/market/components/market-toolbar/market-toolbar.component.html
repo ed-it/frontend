@@ -37,14 +37,19 @@
           </div>
 
           <div class="col">
-            <label class="form-check-label"
-              for="onlyShowProfitable">
-              <input class="form-check-input"
-                type="checkbox"
-                id="onlyShowProfitable"
-                name="onlyShowProfitable"
-                formControlName="filterUnprofitable"> Only show profitable
-            </label>
+            <div>
+              <label class="form-check-label"
+                for="onlyShowProfitable">
+                <input class="form-check-input"
+                  type="checkbox"
+                  id="onlyShowProfitable"
+                  name="onlyShowProfitable"
+                  formControlName="filterUnprofitable"> Only show profitable
+              </label>
+            </div>
+            <div>
+              <button type="button" (click)="requestRefresh()"><i class="fas fa-sync"></i> Reset All</button>
+            </div>
           </div>
         </div>
       </form>

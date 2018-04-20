@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs/Subscription';
   selector: 'app-market-container',
   template: `
     <section id="market-container" *ngIf="data$ | async; let data; else noData;">
-      <app-market-toolbar [data]="data" (filterUpdated)="onFilterUpdated($event)"></app-market-toolbar>
+      <app-market-toolbar [data]="data" (filterUpdated)="onFilterUpdated($event)" (refreshData)="onRefreshData()"></app-market-toolbar>
       <app-market-categories [keys]="data?.params?.categoryKeys" [categories]="data?.params?.categories"
         [filter]="filter"></app-market-categories>
     </section>
@@ -31,14 +31,17 @@ export class MarketContainerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.data$ = this.store.pipe(select(marketStore.getMarketData));
-    this.stream$ = this.stream.connect().subscribe();
   }
 
   ngOnDestroy() {
-    this.stream$.unsubscribe();
+    // this.stream$.unsubscribe();
   }
 
   onFilterUpdated(filter: MarketToolbarState) {
     this.filter = filter;
+  }
+
+  onRefreshData() {
+    this.store.dispatch(new marketStore.LoadMarket());
   }
 }
