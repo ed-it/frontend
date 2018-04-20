@@ -14,9 +14,9 @@ export class MarketGuard implements CanActivate {
 
   getData(): Observable<any> {
     return this.store.pipe(
-      select('market'),
-      tap((data: marketModel.MarketToolState) => {
-        if (!data.market.loaded) {
+      select(marketStore.getMarketLoaded),
+      tap((loaded: boolean) => {
+        if (!loaded) {
           this.store.dispatch(new marketStore.LoadMarket());
         }
       }),

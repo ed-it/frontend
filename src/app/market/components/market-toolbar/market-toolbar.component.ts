@@ -48,9 +48,8 @@ export class MarketToolbarComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(200),
         startWith(defaultOptions),
-        tap(this.onChange.bind(this)),
         takeUntil(this.componentDestroyed$)
-      ).subscribe();
+      ).subscribe(this.onChange.bind(this));
   }
 
   ngOnDestroy() {
