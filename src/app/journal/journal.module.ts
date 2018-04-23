@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { SharedModule } from '../shared/shared.module';
+
 // Containers
 import { JournalContainerComponent } from './containers/journal-container/journal-container.component';
 
@@ -8,9 +10,9 @@ import { JournalContainerComponent } from './containers/journal-container/journa
 import { JournalRoutingModule } from './routes/journal.routes';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, SharedModule, JournalRoutingModule],
   declarations: [JournalContainerComponent],
-  providers: [JournalRoutingModule]
+  entryComponents: [JournalContainerComponent]
 })
 export class JournalModule {}
 

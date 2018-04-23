@@ -18,7 +18,8 @@ import { MarketToolbarState } from '../../components/market-toolbar/market-toolb
     </thead>
     <tbody>
       <tr *ngFor="let item of commodities | getCommodities:filter | arraySort:'Name_Localised'"
-      [ngClass]="{'table-success': item | goodBuy:filter, 'table-danger': item | badSell:filter }">
+      class="commodity-row"
+      [ngClass]="{'good-sell': item | goodBuy:filter, 'bad-sell': item | badSell:filter }">
         <td>{{item.Name_Localised}}</td>
         <td>{{item.BuyPrice}}</td>
         <td>{{item.SellPrice}}</td>

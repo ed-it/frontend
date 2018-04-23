@@ -13,6 +13,4 @@ import { Component } from '@angular/core';
     </div>
   `
 })
-export class JournalContainerComponent {
-  constructor() {}
-}
+export class JournalContainerComponent {}

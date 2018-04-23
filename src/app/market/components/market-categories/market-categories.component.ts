@@ -7,7 +7,7 @@ import { MarketToolbarState } from '../market-toolbar/market-toolbar.component';
   template: `
     <div class="card">
       <div class="card-body">
-        <ngb-tabset type="pills" justify="left">
+        <ngb-tabset justify="left">
           <ngb-tab *ngFor="let category of keys | arraySort" [disabled]="getCommodities(category) | isDisabled:filter">
             <ng-template ngbTabTitle><b>{{category}}</b></ng-template>
             <ng-template ngbTabContent>

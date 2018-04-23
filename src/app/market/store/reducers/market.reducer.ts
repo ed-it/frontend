@@ -55,8 +55,26 @@ export function reducer(
   }
 }
 
+/**
+ * Get the current loading state of the market data
+ * @param state {MarketState}
+ */
 export const getMarketLoading = (state: marketModels.MarketState) => state.loading;
+
+/**
+ * Get the current loaded state of the market data
+ * @param state {MarketState}
+ */
 export const getMarketLoaded = (state: marketModels.MarketState) => state.loaded;
+
+/**
+ * Get the current state of the market data
+ * @param state {MarketState}
+ */
 export const getMarketData = (state: marketModels.MarketState) => state.data;
 
+/**
+ * Get the current category keys from market data
+ * @param state {MarketState}
+ */
 export const getMarketCategories = (state: marketModels.MarketState) => state.data.params.categoryKeys;

@@ -10,6 +10,12 @@ import * as marketModel from './../models';
 export class MarketService {
   constructor(private http: HttpClient) {}
 
+  /**
+   * Fetch the market data object from the server
+   * @public
+   * @name getMarketData
+   * @returns Observable<marketModel.MarketData>
+   */
   public getMarketData(): Observable<marketModel.MarketData> {
     return this.http.get<marketModel.MarketData>('http://localhost:12342/api/market');
   }

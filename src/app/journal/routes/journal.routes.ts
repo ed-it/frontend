@@ -6,8 +6,7 @@ import { JournalContainerComponent } from '../containers/journal-container/journ
 const routes: Routes = [
   {
     path: 'journal',
-    // canActivate: [MarketGuard],
-    children: [{ path: '', component: JournalContainerComponent }]
+    children: [{ path: '', component: JournalContainerComponent, pathMatch: 'full' }]
   }
 ];
 

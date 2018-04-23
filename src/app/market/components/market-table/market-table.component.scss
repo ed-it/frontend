@@ -1,15 +1,52 @@
-tr.good-sell {
-  background: rgba(0, 255, 0, 0.5);
+@keyframes good-animation {
+  0% {
+    background-color: rgba(0, 255, 0, 0.0);
+  }
+  100% {
+    background-color: rgba(0, 255, 0, 0.2)
+  }
 }
 
-tr.good-profit {
-  box-shadow: 1px 1px 1px 1px rgba(0, 255, 255, 0.7);
+@keyframes bad-animation {
+  0% {
+    background-color: rgba(255, 0, 0, 0.0);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 0.2)
+  }
 }
+
+@keyframes normal {
+  0% {
+    background-color: inherit;
+  }
+  100% {
+    background-color: #fff;
+  }
+}
+
+
+tr {
+  background: #fff;
+  animation: normal 0.5 ease;
+}
+
+
+tr.good-sell {
+  animation: good-animation 0.5s ease-in;
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+// tr.good-profit {
+//   box-shadow: 1px 1px 1px 1px rgba(0, 255, 255, 0.7);
+// }
 
 tr.bad-sell {
-  background: rgba(255, 0, 0, 0.5);
+  animation: bad-animation 0.5s ease-in;
+  background-color: rgba(255, 0, 0, 0.2);
 }
 
-tr.bad-profit {
-  box-shadow: 1px 1px 1px 1px rgba(255, 0, 255, 0.7);
-}
+// tr.bad-profit {
+//   box-shadow: 1px 1px 1px 1px rgba(255, 0, 255, 0.7);
+// }
+
